@@ -1,18 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Controller, Get, Post, Query, HttpCode, Redirect, Param, Body } from '@nestjs/common';
-import { CreateDogDto } from './create-dog.dto';
+import { CreateDogDto } from './dto/create-dog.dto';
+import { DogsService } from './dogs.service';
+import { Dog } from './interfaces/dog.interface';
 
 @Controller('dogs')
 export class DogsController {
+  constructor(private dogsService: DogsService) {}
+
   @Get()
-  async findAll(): Promise<any[]> {
-    return [];
+  async findAll(): Promise<Dog[]> {
+    return this.dogsService.findAll();
   }
 
   @Post()
-  @HttpCode(204)
+  @HttpCode(201)
   async create(@Body() createDogDto: CreateDogDto) {
-    return 'This action adds a new dog';
+    return this.dogsService.create(createDogDto);
   }
 
 
