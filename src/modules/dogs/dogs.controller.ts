@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Query, HttpCode, Redirect, Param, Body } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Controller, Get, Post, Query, HttpCode, Redirect, Param, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { DogsService } from './dogs.service';
 import { Dog } from './interfaces/dog.interface';
@@ -21,7 +22,7 @@ export class DogsController {
 
   @Get(':id')
   findOne(@Param('id') id): string {
-    return `This action returns a #${id} dog`;
+    throw new HttpException('Custom message', HttpStatus.FORBIDDEN);
   }
 
   @Get('docs')
