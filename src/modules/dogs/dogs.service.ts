@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { Dog } from './interfaces/dog.interface'
 
@@ -10,6 +11,10 @@ export class DogsService {
   }
 
   findAll(): Dog[] {
+    return this.dogs;
+  }
+  
+  findOne(dogId: number): Dog[] {
     return this.dogs;
   }
 }
