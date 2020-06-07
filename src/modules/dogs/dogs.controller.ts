@@ -1,9 +1,13 @@
-import { Controller, Get, Post, HttpCode, Param, Body, ParseIntPipe, ValidationPipe } from '@nestjs/common';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Controller, Get, Post, HttpCode, Param, Body, ParseIntPipe, ValidationPipe, UseInterceptors } from '@nestjs/common';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { DogsService } from './dogs.service';
 import { Dog } from './interfaces/dog.interface';
 import { Roles } from 'src/common/guards/role.decorator';
+// import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
 
+// 해당 컨트롤러에 Interceptor 적용
+// @UseInterceptors(new LoggingInterceptor())
 @Controller('dogs')
 export class DogsController {
   constructor(private dogsService: DogsService) {}
