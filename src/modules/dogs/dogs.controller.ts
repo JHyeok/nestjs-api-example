@@ -4,6 +4,7 @@ import { CreateDogDto } from './dto/create-dog.dto';
 import { DogsService } from './dogs.service';
 import { Dog } from './interfaces/dog.interface';
 import { Roles } from 'src/common/guards/role.decorator';
+// import { Car } from 'src/common/guards/post.decorator';
 // import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
 
 // 해당 컨트롤러에 Interceptor 적용
@@ -38,6 +39,15 @@ export class DogsController {
     // {"statusCode":400,"message":"Validation failed (numeric string is expected)","error":"Bad Request"} 의 오류를 발생
     return this.dogsService.findOne(id);
   }
+  
+  
+  /*
+  Custom route decorators
+  @Get(':id')
+  async findOne(@Car('name') name: string) {
+    console.log(`Hello ${name}`);
+  }
+  */
 
   /*
   @Get(':id')
