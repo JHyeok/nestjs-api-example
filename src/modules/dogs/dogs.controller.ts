@@ -1,19 +1,22 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Controller, Get, Post, HttpCode, Param, Body, ParseIntPipe, ValidationPipe, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, HttpCode, Param, Body, ParseIntPipe, ValidationPipe } from '@nestjs/common';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { DogsService } from './dogs.service';
 import { Dog } from './interfaces/dog.interface';
 import { Roles } from 'src/common/guards/role.decorator';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 // import { Car } from 'src/common/guards/post.decorator';
 // import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
 
 // 해당 컨트롤러에 Interceptor 적용
 // @UseInterceptors(new LoggingInterceptor())
 @Controller('dogs')
+@ApiTags('dogs')
 export class DogsController {
   constructor(private dogsService: DogsService) {}
 
   @Get()
+  @ApiOperation({ description: '모든 Dog 조회' })
   async findAll(): Promise<Dog[]> {
     return this.dogsService.findAll();
   }
@@ -21,6 +24,7 @@ export class DogsController {
   @Post()
   @HttpCode(201)
   @Roles('admin')
+  @ApiOperation({ description: 'Dog 생성' })
   async create(@Body(new ValidationPipe()) createDogDto: CreateDogDto) {
     return this.dogsService.create(createDogDto);
   }
@@ -34,6 +38,7 @@ export class DogsController {
   DefaultValuePipe
   */
   @Get(':id')
+  @ApiOperation({ description: 'Id가 일치하는 Dog 정보 조회' })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     // ParseIntPipe를 사용할 경우, 매개변수가 number 형식이 아니라면
     // {"statusCode":400,"message":"Validation failed (numeric string is expected)","error":"Bad Request"} 의 오류를 발생
