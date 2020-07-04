@@ -10,7 +10,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 // 해당 컨트롤러에 Interceptor 적용
 // @UseInterceptors(new LoggingInterceptor())
-@Controller('dogs')
+@Controller('api/dogs')
 @ApiTags('dogs')
 export class DogsController {
   constructor(private dogsService: DogsService) {}
