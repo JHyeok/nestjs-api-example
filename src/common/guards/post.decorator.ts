@@ -7,5 +7,5 @@ export const Car = createParamDecorator(
     const car = request.car;
 
     return data ? car && car[data] : car;
-  }
-)
+  },
+);

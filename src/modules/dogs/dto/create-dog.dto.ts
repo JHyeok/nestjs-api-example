@@ -1,4 +1,4 @@
-import { IsString, IsInt } from 'class-validator'
+import { IsString, IsInt } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateDogDto {
