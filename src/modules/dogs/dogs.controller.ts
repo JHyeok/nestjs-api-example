@@ -1,5 +1,14 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Controller, Get, Post, HttpCode, Param, Body, ParseIntPipe, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  HttpCode,
+  Param,
+  Body,
+  ParseIntPipe,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { DogsService } from './dogs.service';
 import { Dog } from './interfaces/dog.interface';
@@ -44,8 +53,7 @@ export class DogsController {
     // {"statusCode":400,"message":"Validation failed (numeric string is expected)","error":"Bad Request"} 의 오류를 발생
     return this.dogsService.findOne(id);
   }
-  
-  
+
   /*
   Custom route decorators
   @Get(':id')

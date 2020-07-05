@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserHttpModule } from '../users/users-http.module'
+import { UserHttpModule } from '../users/users-http.module';
 import { DogsModule } from '../dogs/dogs.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from 'src/common/interceptors/logging.interceptor';
