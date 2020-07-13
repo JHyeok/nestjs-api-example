@@ -3,9 +3,11 @@ import { AppModule } from './modules/main/app.module';
 import { setupSwagger } from './utils/swagger';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api/v1');
 
   app.use(helmet());
@@ -20,7 +22,6 @@ async function bootstrap() {
   );
 
   setupSwagger(app);
-
   await app.listen(3000);
 }
 
