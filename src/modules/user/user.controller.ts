@@ -7,38 +7,38 @@ import {
   Body,
   Delete,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 @Controller('users')
 @ApiTags('users')
-export class UsersController {
-  constructor(private usersService: UsersService) {}
+export class UserController {
+  constructor(private userService: UserService) {}
 
   @Get()
   @ApiOperation({ description: '모든 User 조회' })
   async findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+    return await this.userService.findAll();
   }
 
   @Post()
   @HttpCode(201)
   @ApiOperation({ description: 'User 생성' })
   async create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    return await this.userService.create(createUserDto);
   }
 
   @Get(':id')
   @ApiOperation({ description: 'Id가 일치하는 User 정보 조회' })
   async findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+    return await this.userService.findOne(id);
   }
 
   @Delete(':id')
   @ApiOperation({ description: 'User 삭제' })
   async remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+    return await this.userService.remove(id);
   }
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Dog } from './interfaces/dog.interface';
 
 @Injectable()
-export class DogsService {
+export class DogService {
   private readonly dogs: Dog[] = [];
 
   create(dog: Dog) {

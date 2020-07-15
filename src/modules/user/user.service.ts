@@ -5,22 +5,22 @@ import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    this.userRepository.save(createUserDto);
+    return await this.userRepository.save(createUserDto);
   }
 
-  findAll(): Promise<User[]> {
-    return this.userRepository.find();
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.find();
   }
 
-  findOne(id: string): Promise<User> {
-    return this.userRepository.findOne(id);
+  async findOne(id: string): Promise<User> {
+    return await this.userRepository.findOne(id);
   }
 
   async remove(id: string): Promise<void> {
