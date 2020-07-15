@@ -10,7 +10,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateDogDto } from './dto/create-dog.dto';
-import { DogsService } from './dogs.service';
+import { DogService } from './dog.service';
 import { Dog } from './interfaces/dog.interface';
 import { Roles } from 'src/common/guards/role.decorator';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
@@ -21,13 +21,13 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 // @UseInterceptors(new LoggingInterceptor())
 @Controller('dogs')
 @ApiTags('dogs')
-export class DogsController {
-  constructor(private dogsService: DogsService) {}
+export class DogController {
+  constructor(private dogService: DogService) {}
 
   @Get()
   @ApiOperation({ description: '모든 Dog 조회' })
   async findAll(): Promise<Dog[]> {
-    return this.dogsService.findAll();
+    return this.dogService.findAll();
   }
 
   @Post()
@@ -35,7 +35,7 @@ export class DogsController {
   @Roles('admin')
   @ApiOperation({ description: 'Dog 생성' })
   async create(@Body(new ValidationPipe()) createDogDto: CreateDogDto) {
-    return this.dogsService.create(createDogDto);
+    return this.dogService.create(createDogDto);
   }
 
   /*
@@ -51,7 +51,7 @@ export class DogsController {
   async findOne(@Param('id', ParseIntPipe) id: number) {
     // ParseIntPipe를 사용할 경우, 매개변수가 number 형식이 아니라면
     // {"statusCode":400,"message":"Validation failed (numeric string is expected)","error":"Bad Request"} 의 오류를 발생
-    return this.dogsService.findOne(id);
+    return this.dogService.findOne(id);
   }
 
   /*
