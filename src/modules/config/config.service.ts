@@ -12,7 +12,7 @@ export class ConfigService {
     return this.envConfig[key];
   }
 
-  isEnv(env: string) {
+  isEnv(env: string): boolean {
     return this.envConfig.APP_ENV === env;
   }
 }
