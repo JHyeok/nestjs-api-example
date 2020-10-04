@@ -3,7 +3,8 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 /**
  * Swagger 세팅
- * @param app NestApplication
+ *
+ * @param {INestApplication} app
  */
 export function setupSwagger(app: INestApplication): void {
   const options = new DocumentBuilder()
