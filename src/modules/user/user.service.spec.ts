@@ -1,12 +1,13 @@
 import * as faker from 'faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { User, UserRepositoryFake } from '../user/user.entity';
+import { User, UserRepositoryFake } from './user.entity';
 import { UserService } from './user.service';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { BadRequestException } from '@nestjs/common';
+import Message from './user.message';
 
 describe('UserService', () => {
   let userService: UserService;
@@ -129,7 +130,7 @@ describe('UserService', () => {
         await userService.updateUser(userId, updateUserDto);
       } catch (e) {
         expect(e).toBeInstanceOf(BadRequestException);
-        expect(e.message).toBe('존재하지 않는 유저 정보입니다.');
+        expect(e.message).toBe(Message.NOT_FOUND_USER_ITEM);
       }
 
       expect(userRepositoryFindOneSpy).toHaveBeenCalledWith({
