@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import Message from './user.message';
 
 @Injectable()
 export class UserService {
@@ -60,7 +61,7 @@ export class UserService {
     });
 
     if (!userToUpdate) {
-      throw new BadRequestException('존재하지 않는 유저 정보입니다.');
+      throw new BadRequestException(Message.NOT_FOUND_USER_ITEM);
     }
 
     userToUpdate.firstName = updateUserDto.firstName;
