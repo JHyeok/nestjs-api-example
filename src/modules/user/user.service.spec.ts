@@ -1,31 +1,24 @@
 import * as faker from 'faker';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { User, UserRepositoryFake } from './user.entity';
+import { User } from './user.entity';
 import { UserService } from './user.service';
-import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { BadRequestException } from '@nestjs/common';
+import { UserRepository } from './user.repository';
 import Message from './user.message';
 
 describe('UserService', () => {
   let userService: UserService;
-  let userRepository: Repository<User>;
+  let userRepository: UserRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        UserService,
-        {
-          provide: getRepositoryToken(User),
-          useClass: UserRepositoryFake,
-        },
-      ],
+      providers: [UserService, UserRepository],
     }).compile();
 
     userService = module.get<UserService>(UserService);
-    userRepository = module.get(getRepositoryToken(User));
+    userRepository = module.get<UserRepository>(UserRepository);
   });
 
   describe('유저 정보 생성', () => {
