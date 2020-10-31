@@ -21,8 +21,8 @@ import { ConfigModule, ConfigService } from './../config';
           port: configService.get('DB_PORT'),
           username: configService.get('DB_USERNAME'),
           password: configService.get('DB_PASSWORD'),
-          database: configService.get('DB_DATABASE'),
-          entities: [__dirname + './../**/**.entity{.ts,.js}'],
+          database: configService.get('DB_NAME'),
+          entities: [__dirname + '/../**/*.entity{.ts,.js}'],
           synchronize: configService.isEnv('dev'),
         } as TypeOrmModuleAsyncOptions;
       },
