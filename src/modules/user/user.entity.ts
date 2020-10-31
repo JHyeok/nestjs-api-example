@@ -22,13 +22,3 @@ export class User {
     return user;
   }
 }
-
-/**
- * 단위 테스트에 사용되는 Fake Repository
- */
-export class UserRepositoryFake {
-  public async save(): Promise<void> {}
-  public async findOne(): Promise<void> {}
-  public async find(): Promise<void> {}
-  public async delete(): Promise<void> {}
-}
