@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { UserRepository } from './user.repository';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -8,19 +7,16 @@ import Message from './user.message';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   /**
    * 유저를 생성한다.
    *
    * @param {CreateUserDto} createUserDto - 유저 생성 Dto
-   * @returns {Promise<CreateUserDto & User>}
+   * @returns {Promise<User>}
    */
-  async createUser(createUserDto: CreateUserDto) {
-    return await this.userRepository.save(createUserDto);
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
+    return this.userRepository.save(createUserDto);
   }
 
   /**
@@ -29,7 +25,7 @@ export class UserService {
    * @returns {Promise<User[]>}
    */
   async getUsers(): Promise<User[]> {
-    return await this.userRepository.find();
+    return this.userRepository.find();
   }
 
   /**
@@ -39,7 +35,7 @@ export class UserService {
    * @returns {Promise<User>}
    */
   async getUserById(id: string): Promise<User> {
-    return await this.userRepository.findOne({
+    return this.userRepository.findOne({
       where: {
         id: id,
       },
@@ -68,7 +64,7 @@ export class UserService {
     userToUpdate.lastName = updateUserDto.lastName;
     userToUpdate.isActive = updateUserDto.isActive;
 
-    return await this.userRepository.save(userToUpdate);
+    return this.userRepository.save(userToUpdate);
   }
 
   /**
