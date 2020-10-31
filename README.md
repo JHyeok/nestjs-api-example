@@ -18,13 +18,18 @@ npm install
 설치가 끝났으면 `src/.env.example`을 복사해서 `.env`를 만든다.
 
 ```
+# APP
+# APP_ENV값이 dev인 경우, TypeORM synchronize true로 설정된다.
+APP_ENV=dev
+
 # DATABASE
 DB_TYPE=mysql
-DB_USERNAME=root
-DB_PASSWORD=root
-DB_HOST=localhost
+DB_HOST=db
 DB_PORT=3306
-DB_DATABASE=test
+DB_ROOT_PASSWORD=rootpass
+DB_NAME=test
+DB_USERNAME=test
+DB_PASSWORD=test
 ```
 
 `.env`를 본인이 사용하려는 DB 연결 정보에 맞게 수정하면 된다.
