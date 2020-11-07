@@ -4,16 +4,24 @@ import { setupSwagger } from './utils/swagger';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from './modules/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe());
+
+  const configService = app.get<ConfigService>(ConfigService);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+    }),
+  );
   app.setGlobalPrefix('api/v1');
 
   app.use(helmet());
   app.enableCors();
 
-  // 1분 동안 들어오는 요청의 수를 100개로 제한
   app.use(
     rateLimit({
       windowMs: 1 * 60 * 1000,
@@ -22,7 +30,11 @@ async function bootstrap() {
   );
 
   setupSwagger(app);
-  await app.listen(3000);
+
+  const port = configService.get('APP_PORT');
+  await app.listen(port);
+
+  console.info(`Server listening on port ${port}`);
 }
 
-bootstrap();
+void bootstrap();
