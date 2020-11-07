@@ -7,6 +7,7 @@ import {
   Body,
   Delete,
   Put,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
@@ -34,14 +35,14 @@ export class UserController {
 
   @Get(':id')
   @ApiOperation({ description: 'Id가 일치하는 User 정보 조회' })
-  findOne(@Param('id') id: string): Promise<User> {
+  findOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<User> {
     return this.userService.getUserById(id);
   }
 
   @Put(':id')
   @ApiOperation({ description: 'User 정보 수정' })
   update(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<User> {
     return this.userService.updateUser(id, updateUserDto);
@@ -49,7 +50,7 @@ export class UserController {
 
   @Delete(':id')
   @ApiOperation({ description: 'User 삭제' })
-  remove(@Param('id') id: string): Promise<void> {
+  remove(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
     return this.userService.removeUser(id);
   }
 }
