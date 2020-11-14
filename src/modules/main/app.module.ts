@@ -23,6 +23,7 @@ import { ConfigModule, ConfigService } from './../config';
           database: configService.get('DB_NAME'),
           entities: [__dirname + '/../**/*.entity{.ts,.js}'],
           synchronize: configService.isEnv('dev'),
+          logging: configService.isEnv('dev'),
         } as TypeOrmModuleAsyncOptions;
       },
     }),
