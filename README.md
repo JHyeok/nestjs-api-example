@@ -19,7 +19,6 @@ npm install
 
 ```
 # APP
-# APP_ENV값이 dev인 경우, TypeORM synchronize true로 설정된다.
 APP_ENV=dev
 APP_PORT=3000
 
