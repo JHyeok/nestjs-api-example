@@ -34,7 +34,7 @@ describe('UserService', () => {
       const createdUserEntity = User.of(createUserDto);
 
       const savedUser = User.of({
-        id: faker.random.uuid(),
+        id: faker.random.number(),
         firstName: firstName,
         lastName: lastName,
         isActive: true,
@@ -55,13 +55,13 @@ describe('UserService', () => {
     it('모든 유저 정보 목록을 성공적으로 불러온다.', async () => {
       const existingUserList = [
         User.of({
-          id: faker.random.uuid(),
+          id: faker.random.number(),
           firstName: faker.lorem.sentence(),
           lastName: faker.lorem.sentence(),
           isActive: true,
         }),
         User.of({
-          id: faker.random.uuid(),
+          id: faker.random.number(),
           firstName: faker.lorem.sentence(),
           lastName: faker.lorem.sentence(),
           isActive: true,
@@ -81,7 +81,7 @@ describe('UserService', () => {
 
   describe('유저 정보 조회', () => {
     it('유저 정보를 성공적으로 불러온다.', async () => {
-      const userId = faker.random.uuid();
+      const userId = faker.random.number();
 
       const existingUser = User.of({
         id: userId,
@@ -107,7 +107,7 @@ describe('UserService', () => {
 
   describe('유저 정보 수정', () => {
     it('존재하지 않는 유저 정보를 수정할 경우 BadRequestError 발생한다.', async () => {
-      const userId = faker.random.uuid();
+      const userId = faker.random.number();
 
       const updateUserDto: UpdateUserDto = {
         firstName: faker.lorem.sentence(),
@@ -134,7 +134,7 @@ describe('UserService', () => {
     });
 
     it('유저 정보를 성공적으로 수정한다.', async () => {
-      const userId = faker.random.uuid();
+      const userId = faker.random.number();
 
       const updateUserDto: UpdateUserDto = {
         firstName: faker.lorem.sentence(),
@@ -176,7 +176,7 @@ describe('UserService', () => {
 
   describe('유저 정보 삭제', () => {
     it('유저 정보를 성공적으로 삭제한다.', async () => {
-      const userId = faker.random.uuid();
+      const userId = faker.random.number();
 
       const userRepositoryDeleteSpy = jest
         .spyOn(userRepository, 'delete')
