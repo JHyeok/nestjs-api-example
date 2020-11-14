@@ -24,7 +24,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "docker:build": "docker-compose up -d --build",
-    "docker:down": "docker-compose down -v"
+    "docker:down": "docker-compose down -v",
+    "migration:generate": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:generate -d src/migrations -n",
+    "migration:create": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:create -d src/migrations -n",
+    "migration:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run"
   },
   "husky": {
     "hooks": {
