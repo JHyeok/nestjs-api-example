@@ -3,6 +3,7 @@ import { AppModule } from './modules/main/app.module';
 import { setupSwagger } from './utils/swagger';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
+import * as compression from 'compression';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from './modules/config';
 
@@ -17,17 +18,20 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
-  app.setGlobalPrefix('api/v1');
+  app.setGlobalPrefix('/api/v1');
 
   app.use(helmet());
   app.enableCors();
 
   app.use(
+    '/api/v1',
     rateLimit({
       windowMs: 1 * 60 * 1000,
       max: 100,
     }),
   );
+
+  app.use(compression());
 
   setupSwagger(app);
 
