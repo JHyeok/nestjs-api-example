@@ -31,10 +31,10 @@ export class UserService {
   /**
    * 유저 Id에 해당하는 유저 정보를 조회한다.
    *
-   * @param {string} id - 유저 Id
+   * @param {number} id - 유저 Id
    * @returns {Promise<User>}
    */
-  async getUserById(id: string): Promise<User> {
+  async getUserById(id: number): Promise<User> {
     return this.userRepository.findOne({
       where: {
         id: id,
@@ -45,11 +45,11 @@ export class UserService {
   /**
    * 유저 Id에 해당하는 유저 정보를 수정한다.
    *
-   * @param {string} id - 유저 Id
+   * @param {number} id - 유저 Id
    * @param {UpdateUserDto} updateUserDto - 유저 수정 Dto
    * @returns {Promise<User>}
    */
-  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const userToUpdate = await this.userRepository.findOne({
       where: {
         id: id,
@@ -70,10 +70,10 @@ export class UserService {
   /**
    * 유저 Id에 해당하는 유저 정보를 삭제한다.
    *
-   * @param {string} id - 유저 Id
+   * @param {number} id - 유저 Id
    * @returns {Promise<void>}
    */
-  async removeUser(id: string): Promise<void> {
+  async removeUser(id: number): Promise<void> {
     await this.userRepository.delete(id);
   }
 }
