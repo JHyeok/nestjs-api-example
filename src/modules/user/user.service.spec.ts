@@ -40,12 +40,17 @@ describe('UserService', () => {
         isActive: true,
       });
 
+      const userRepositoryCreateSpy = jest
+        .spyOn(userRepository, 'create')
+        .mockReturnValue(createdUserEntity);
+
       const userRepositorySaveSpy = jest
         .spyOn(userRepository, 'save')
         .mockResolvedValue(savedUser);
 
-      const result = await userService.createUser(createdUserEntity);
+      const result = await userService.createUser(createUserDto);
 
+      expect(userRepositoryCreateSpy).toBeCalledWith(createUserDto);
       expect(userRepositorySaveSpy).toBeCalledWith(createdUserEntity);
       expect(result).toEqual(savedUser);
     });
