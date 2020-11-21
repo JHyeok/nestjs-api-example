@@ -19,7 +19,6 @@ npm install
 
 ```
 # APP
-APP_ENV=dev
 APP_PORT=3000
 
 # DATABASE
