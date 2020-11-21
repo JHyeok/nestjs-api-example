@@ -13,6 +13,10 @@ export class ConfigService {
   }
 
   isEnv(env: string): boolean {
-    return this.envConfig.APP_ENV === env;
+    return this.nodeEnv === env;
+  }
+
+  get nodeEnv(): string {
+    return process.env.NODE_ENV || 'development';
   }
 }

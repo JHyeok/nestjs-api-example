@@ -1,3 +1,6 @@
+/**
+ * TypeORM 마이그레이션 목적으로만 사용
+ */
 export default {
   type: process.env.DB_TYPE,
   host: process.env.DB_HOST,
