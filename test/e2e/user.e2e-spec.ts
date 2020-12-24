@@ -37,7 +37,7 @@ describe('UserController (e2e)', () => {
     await app.init();
   });
 
-  describe('GET /api/v1/users', () => {
+  describe('GET /v1/users', () => {
     it('유저 목록을 반환한다.', async () => {
       await userRepository.save([
         { firstName: 'first-1', lastName: 'last-2' },
@@ -45,7 +45,7 @@ describe('UserController (e2e)', () => {
       ]);
 
       const { body } = await request(app.getHttpServer())
-        .get('/users')
+        .get('/v1/users')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200);
