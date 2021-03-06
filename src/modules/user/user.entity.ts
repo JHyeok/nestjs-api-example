@@ -3,22 +3,22 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  public id: number;
+  id!: number;
 
   @Column({
     length: 50,
   })
-  public firstName: string;
+  firstName!: string;
 
   @Column({
     length: 50,
   })
-  public lastName: string;
+  lastName!: string;
 
   @Column({ default: true })
-  public isActive: boolean;
+  isActive!: boolean;
 
-  public static of(params: Partial<User>): User {
+  static of(params: Partial<User>): User {
     const user = new User();
 
     Object.assign(user, params);
