@@ -4,9 +4,10 @@ import { User } from './user.entity';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { BadRequestException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import Message from './user.message';
+import { DeleteResult } from 'typeorm';
 
 describe('UserService', () => {
   let userService: UserService;
@@ -79,12 +80,33 @@ describe('UserService', () => {
 
       const result = await userService.getUsers();
 
-      expect(result).toBe(existingUserList);
       expect(userRepositoryFindSpy).toBeCalled();
+      expect(result).toBe(existingUserList);
     });
   });
 
   describe('유저 정보 조회', () => {
+    it('존재하지 않는 유저 정보를 조회할 경우 NotFoundError 발생한다.', async () => {
+      const userId = faker.random.number();
+
+      const userRepositoryFindOneSpy = jest
+        .spyOn(userRepository, 'findOne')
+        .mockResolvedValue(undefined);
+
+      try {
+        await userService.getUserById(userId);
+      } catch (e) {
+        expect(e).toBeInstanceOf(NotFoundException);
+        expect(e.message).toBe(Message.NOT_FOUND_USER);
+      }
+
+      expect(userRepositoryFindOneSpy).toHaveBeenCalledWith({
+        where: {
+          id: userId,
+        },
+      });
+    });
+
     it('유저 정보를 성공적으로 불러온다.', async () => {
       const userId = faker.random.number();
 
@@ -101,17 +123,17 @@ describe('UserService', () => {
 
       const result = await userService.getUserById(userId);
 
-      expect(result).toBe(existingUser);
       expect(userRepositoryFindOneSpy).toHaveBeenCalledWith({
         where: {
           id: userId,
         },
       });
+      expect(result).toBe(existingUser);
     });
   });
 
   describe('유저 정보 수정', () => {
-    it('존재하지 않는 유저 정보를 수정할 경우 BadRequestError 발생한다.', async () => {
+    it('존재하지 않는 유저 정보를 수정할 경우 NotFoundError 발생한다.', async () => {
       const userId = faker.random.number();
 
       const updateUserDto: UpdateUserDto = {
@@ -122,13 +144,13 @@ describe('UserService', () => {
 
       const userRepositoryFindOneSpy = jest
         .spyOn(userRepository, 'findOne')
-        .mockResolvedValue(null);
+        .mockResolvedValue(undefined);
 
       try {
         await userService.updateUser(userId, updateUserDto);
       } catch (e) {
-        expect(e).toBeInstanceOf(BadRequestException);
-        expect(e.message).toBe(Message.NOT_FOUND_USER_ITEM);
+        expect(e).toBeInstanceOf(NotFoundException);
+        expect(e.message).toBe(Message.NOT_FOUND_USER);
       }
 
       expect(userRepositoryFindOneSpy).toHaveBeenCalledWith({
@@ -185,7 +207,7 @@ describe('UserService', () => {
 
       const userRepositoryDeleteSpy = jest
         .spyOn(userRepository, 'delete')
-        .mockResolvedValue(null);
+        .mockResolvedValue({} as DeleteResult);
 
       const result = await userService.removeUser(userId);
 
