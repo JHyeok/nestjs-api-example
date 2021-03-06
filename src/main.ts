@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/main/app.module';
+import helmet from 'helmet';
 import { setupSwagger } from './utils/swagger';
-import * as helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from './modules/config';
 
