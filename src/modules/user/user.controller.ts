@@ -14,11 +14,12 @@ import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserResponseDto } from './dto/user-response.dto';
 
 @Controller('v1/users')
 @ApiTags('users')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Get()
   @ApiOperation({ description: '모든 User 조회' })
@@ -35,8 +36,12 @@ export class UserController {
 
   @Get(':id')
   @ApiOperation({ description: 'Id가 일치하는 User 정보 조회' })
-  findOne(@Param('id', new ParseIntPipe()) id: number): Promise<User> {
-    return this.userService.getUserById(id);
+  async findOne(
+    @Param('id', new ParseIntPipe()) id: number,
+  ): Promise<UserResponseDto> {
+    const user: User = await this.userService.getUserById(id);
+
+    return new UserResponseDto(user);
   }
 
   @Put(':id')
