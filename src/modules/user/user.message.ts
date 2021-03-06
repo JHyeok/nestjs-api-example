@@ -1,6 +1,6 @@
 export default {
   /**
-   * MESSAGE - 존재하지 않는 유저 정보입니다.
+   * MESSAGE - 유저 정보를 찾을 수 없습니다.
    */
-  NOT_FOUND_USER_ITEM: '존재하지 않는 유저 정보입니다.',
+  NOT_FOUND_USER: '유저 정보를 찾을 수 없습니다.',
 };

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { NotFoundException, Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,7 +15,7 @@ export class UserService {
    * @param {CreateUserDto} createUserDto - 유저 생성 Dto
    * @returns {Promise<User>}
    */
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
+  createUser(createUserDto: CreateUserDto): Promise<User> {
     const user = this.userRepository.create(createUserDto);
 
     return this.userRepository.save(user);
@@ -26,7 +26,7 @@ export class UserService {
    *
    * @returns {Promise<User[]>}
    */
-  async getUsers(): Promise<User[]> {
+  getUsers(): Promise<User[]> {
     return this.userRepository.find();
   }
 
@@ -37,11 +37,17 @@ export class UserService {
    * @returns {Promise<User>}
    */
   async getUserById(id: number): Promise<User> {
-    return this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: {
         id: id,
       },
     });
+
+    if (user === undefined) {
+      throw new NotFoundException(Message.NOT_FOUND_USER);
+    }
+
+    return user;
   }
 
   /**
@@ -58,8 +64,8 @@ export class UserService {
       },
     });
 
-    if (!userToUpdate) {
-      throw new BadRequestException(Message.NOT_FOUND_USER_ITEM);
+    if (userToUpdate === undefined) {
+      throw new NotFoundException(Message.NOT_FOUND_USER);
     }
 
     userToUpdate.firstName = updateUserDto.firstName;
