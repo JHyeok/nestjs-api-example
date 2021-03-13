@@ -2,8 +2,8 @@ import * as faker from 'faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User } from './user.entity';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserCreateRequestDto } from './dto/user-create-request.dto';
+import { UserUpdateRequestDto } from './dto/user-update-request.dto';
 import { NotFoundException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import Message from './user.message';
@@ -27,12 +27,12 @@ describe('UserService', () => {
       const firstName = faker.lorem.sentence();
       const lastName = faker.lorem.sentence();
 
-      const createUserDto: CreateUserDto = {
+      const requestDto: UserCreateRequestDto = {
         firstName: firstName,
         lastName: lastName,
       };
 
-      const createdUserEntity = User.of(createUserDto);
+      const createdUserEntity = User.of(requestDto);
 
       const savedUser = User.of({
         id: faker.random.number(),
@@ -49,9 +49,9 @@ describe('UserService', () => {
         .spyOn(userRepository, 'save')
         .mockResolvedValue(savedUser);
 
-      const result = await userService.createUser(createUserDto);
+      const result = await userService.createUser(requestDto);
 
-      expect(userRepositoryCreateSpy).toBeCalledWith(createUserDto);
+      expect(userRepositoryCreateSpy).toBeCalledWith(requestDto);
       expect(userRepositorySaveSpy).toBeCalledWith(createdUserEntity);
       expect(result).toEqual(savedUser);
     });
@@ -136,7 +136,7 @@ describe('UserService', () => {
     it('존재하지 않는 유저 정보를 수정할 경우 NotFoundError 발생한다.', async () => {
       const userId = faker.random.number();
 
-      const updateUserDto: UpdateUserDto = {
+      const requestDto: UserUpdateRequestDto = {
         firstName: faker.lorem.sentence(),
         lastName: faker.lorem.sentence(),
         isActive: false,
@@ -147,7 +147,7 @@ describe('UserService', () => {
         .mockResolvedValue(undefined);
 
       try {
-        await userService.updateUser(userId, updateUserDto);
+        await userService.updateUser(userId, requestDto);
       } catch (e) {
         expect(e).toBeInstanceOf(NotFoundException);
         expect(e.message).toBe(Message.NOT_FOUND_USER);
@@ -163,7 +163,7 @@ describe('UserService', () => {
     it('유저 정보를 성공적으로 수정한다.', async () => {
       const userId = faker.random.number();
 
-      const updateUserDto: UpdateUserDto = {
+      const requestDto: UserUpdateRequestDto = {
         firstName: faker.lorem.sentence(),
         lastName: faker.lorem.sentence(),
         isActive: false,
@@ -178,7 +178,7 @@ describe('UserService', () => {
 
       const savedUser = User.of({
         id: userId,
-        ...updateUserDto,
+        ...requestDto,
       });
 
       const userRepositoryFindOneSpy = jest
@@ -189,7 +189,7 @@ describe('UserService', () => {
         .spyOn(userRepository, 'save')
         .mockResolvedValue(savedUser);
 
-      const result = await userService.updateUser(userId, updateUserDto);
+      const result = await userService.updateUser(userId, requestDto);
 
       expect(userRepositoryFindOneSpy).toHaveBeenCalledWith({
         where: {
