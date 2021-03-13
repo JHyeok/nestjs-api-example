@@ -11,9 +11,9 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserCreateRequestDto } from './dto/user-create-request.dto';
+import { UserUpdateRequestDto } from './dto/user-update-request.dto';
 import { UserResponseDto } from './dto/user-response.dto';
 
 @Controller('v1/users')
@@ -30,8 +30,8 @@ export class UserController {
   @Post()
   @HttpCode(201)
   @ApiOperation({ description: 'User 생성' })
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.userService.createUser(createUserDto);
+  create(@Body() requestDto: UserCreateRequestDto): Promise<User> {
+    return this.userService.createUser(requestDto);
   }
 
   @Get(':id')
@@ -48,9 +48,9 @@ export class UserController {
   @ApiOperation({ description: 'User 정보 수정' })
   update(
     @Param('id', new ParseIntPipe()) id: number,
-    @Body() updateUserDto: UpdateUserDto,
+    @Body() requestDto: UserUpdateRequestDto,
   ): Promise<User> {
-    return this.userService.updateUser(id, updateUserDto);
+    return this.userService.updateUser(id, requestDto);
   }
 
   @Delete(':id')
