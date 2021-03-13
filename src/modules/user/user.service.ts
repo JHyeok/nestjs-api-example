@@ -61,15 +61,7 @@ export class UserService {
     id: number,
     requestDto: UserUpdateRequestDto,
   ): Promise<User> {
-    const userToUpdate = await this.userRepository.findOne({
-      where: {
-        id: id,
-      },
-    });
-
-    if (userToUpdate === undefined) {
-      throw new NotFoundException(Message.NOT_FOUND_USER);
-    }
+    const userToUpdate = await this.getUserById(id);
 
     userToUpdate.firstName = requestDto.firstName;
     userToUpdate.lastName = requestDto.lastName;
