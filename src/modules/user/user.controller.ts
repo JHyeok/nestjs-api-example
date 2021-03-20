@@ -8,7 +8,10 @@ import {
   Delete,
   Put,
   ParseIntPipe,
+  Res,
+  HttpStatus,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
@@ -23,39 +26,52 @@ export class UserController {
 
   @Get()
   @ApiOperation({ description: '모든 User 조회' })
-  findAll(): Promise<User[]> {
-    return this.userService.getUsers();
+  async findAll(@Res() res: Response) {
+    const users: User[] = await this.userService.getUsers();
+
+    return res.status(HttpStatus.OK).json(users);
   }
 
   @Post()
   @HttpCode(201)
   @ApiOperation({ description: 'User 생성' })
-  create(@Body() requestDto: UserCreateRequestDto): Promise<User> {
-    return this.userService.createUser(requestDto);
+  async create(@Body() requestDto: UserCreateRequestDto, @Res() res: Response) {
+    const user: User = await this.userService.createUser(requestDto);
+
+    return res.status(HttpStatus.CREATED).json(user);
   }
 
   @Get(':id')
   @ApiOperation({ description: 'Id가 일치하는 User 정보 조회' })
   async findOne(
     @Param('id', new ParseIntPipe()) id: number,
-  ): Promise<UserResponseDto> {
+    @Res() res: Response,
+  ) {
     const user: User = await this.userService.getUserById(id);
 
-    return new UserResponseDto(user);
+    return res.status(HttpStatus.OK).json(new UserResponseDto(user));
   }
 
   @Put(':id')
   @ApiOperation({ description: 'User 정보 수정' })
-  update(
+  async update(
     @Param('id', new ParseIntPipe()) id: number,
     @Body() requestDto: UserUpdateRequestDto,
-  ): Promise<User> {
-    return this.userService.updateUser(id, requestDto);
+    @Res() res: Response,
+  ) {
+    const updatedUser: User = await this.userService.updateUser(id, requestDto);
+
+    return res.status(HttpStatus.OK).json(updatedUser);
   }
 
   @Delete(':id')
   @ApiOperation({ description: 'User 삭제' })
-  remove(@Param('id', new ParseIntPipe()) id: number): Promise<void> {
-    return this.userService.removeUser(id);
+  async remove(
+    @Param('id', new ParseIntPipe()) id: number,
+    @Res() res: Response,
+  ) {
+    await this.userService.removeUser(id);
+
+    return res.status(HttpStatus.NO_CONTENT).send();
   }
 }
