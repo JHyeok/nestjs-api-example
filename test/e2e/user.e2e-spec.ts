@@ -2,9 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { UserRepository } from '../../src/modules/user/user.repository';
+import { UserRepository } from '../../src/api/user/user.repository';
 import { TypeOrmConfigService } from '../../src/database/ormconfig.service';
-import { AppModule } from '../../src/modules/main/app.module';
+import { AppModule } from '../../src/app.module';
 
 class MockTypeOrmConfigServer implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
@@ -13,7 +13,7 @@ class MockTypeOrmConfigServer implements TypeOrmOptionsFactory {
       database: ':memory:',
       synchronize: true,
       dropSchema: true,
-      entities: ['src/modules/**/*.entity{.ts,.js}'],
+      entities: ['src/api/**/*.entity{.ts,.js}'],
     };
   }
 }
