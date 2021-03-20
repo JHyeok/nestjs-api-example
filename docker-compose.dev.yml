@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 services:
   db:
     image: "mariadb:10.5.6"
@@ -33,7 +33,7 @@ services:
       - -c
       - |
         /wait-for-it.sh db:3306 -t 15
-        npm run start
+        npm run start:dev
     networks:
       - app
 
