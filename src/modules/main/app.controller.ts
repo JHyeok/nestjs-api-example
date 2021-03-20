@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res, HttpStatus } from '@nestjs/common';
+import { Response } from 'express';
 import { AppService } from './app.service';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -9,7 +10,9 @@ export class AppController {
 
   @Get('/health')
   @ApiOperation({ description: 'health check' })
-  healthCheck(): string {
-    return this.appService.sendOk();
+  healthCheck(@Res() res: Response) {
+    const result: string = this.appService.sendOk();
+
+    return res.status(HttpStatus.OK).send(result);
   }
 }
