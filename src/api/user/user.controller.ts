@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   Post,
-  HttpCode,
   Param,
   Body,
   Delete,
@@ -33,7 +32,6 @@ export class UserController {
   }
 
   @Post()
-  @HttpCode(201)
   @ApiOperation({ description: 'User 생성' })
   async create(@Body() requestDto: UserCreateRequestDto, @Res() res: Response) {
     const user: User = await this.userService.createUser(requestDto);
