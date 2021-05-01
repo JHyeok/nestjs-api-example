@@ -13,18 +13,25 @@ import {
 import { Response } from 'express';
 import { UserService } from './user.service';
 import { User } from './user.entity';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiNoContentResponse,
+} from '@nestjs/swagger';
 import { UserCreateRequestDto } from './dto/user-create-request.dto';
 import { UserUpdateRequestDto } from './dto/user-update-request.dto';
 import { UserResponseDto } from './dto/user-response.dto';
 
 @Controller('v1/users')
-@ApiTags('users')
+@ApiTags('유저 API')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  @ApiOperation({ description: '모든 User 조회' })
+  @ApiOperation({ summary: '모든 유저 조회 API' })
+  @ApiOkResponse({ description: '모든 유저를 조회한다.', type: User })
   async findAll(@Res() res: Response) {
     const users: User[] = await this.userService.getUsers();
 
@@ -32,7 +39,8 @@ export class UserController {
   }
 
   @Post()
-  @ApiOperation({ description: 'User 생성' })
+  @ApiOperation({ summary: '유저 생성 API', description: '유저를 생성한다.' })
+  @ApiCreatedResponse({ description: '유저를 생성한다.', type: User })
   async create(@Body() requestDto: UserCreateRequestDto, @Res() res: Response) {
     const user: User = await this.userService.createUser(requestDto);
 
@@ -40,7 +48,11 @@ export class UserController {
   }
 
   @Get(':id')
-  @ApiOperation({ description: 'Id가 일치하는 User 정보 조회' })
+  @ApiOperation({ summary: '유저 정보 조회 API' })
+  @ApiOkResponse({
+    description: 'Id가 일치하는 유저 정보를 조회한다.',
+    type: UserResponseDto,
+  })
   async findOne(
     @Param('id', new ParseIntPipe()) id: number,
     @Res() res: Response,
@@ -51,7 +63,11 @@ export class UserController {
   }
 
   @Put(':id')
-  @ApiOperation({ description: 'User 정보 수정' })
+  @ApiOperation({ summary: '유저 정보 수정 API' })
+  @ApiOkResponse({
+    description: 'Id가 일치하는 유저 정보를 수정한다.',
+    type: User,
+  })
   async update(
     @Param('id', new ParseIntPipe()) id: number,
     @Body() requestDto: UserUpdateRequestDto,
@@ -63,7 +79,8 @@ export class UserController {
   }
 
   @Delete(':id')
-  @ApiOperation({ description: 'User 삭제' })
+  @ApiOperation({ summary: '유저 삭제 API' })
+  @ApiNoContentResponse({ description: 'Id가 일치하는 유저 정보를 삭제한다.' })
   async remove(
     @Param('id', new ParseIntPipe()) id: number,
     @Res() res: Response,
