@@ -1,4 +1,4 @@
-FROM node:14.15.0-alpine AS builder
+FROM node:14.15.4-alpine AS builder
 
 COPY . /app
 WORKDIR /app
@@ -6,7 +6,7 @@ WORKDIR /app
 RUN npm install && \
   npm run build
 
-FROM node:14.15.0-alpine
+FROM node:14.15.4-alpine
 
 ARG PROJECT_DIR=/usr/src/app
 
