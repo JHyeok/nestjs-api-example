@@ -38,10 +38,15 @@ DB_PASSWORD=test
 ```bash
 # 실행
 $ docker-compose -f docker-compose.dev.yml up -d
+
 # 재시작
 $ docker-compose -f docker-compose.dev.yml restart
+
 # 중지
 $ docker-compose -f docker-compose.dev.yml down
+
+# 중지 (도커 볼륨 삭제)
+$ docker-compose -f docker-compose.dev.yml down -v
 ```
 
 ## 실행
