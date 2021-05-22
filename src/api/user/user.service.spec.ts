@@ -35,7 +35,7 @@ describe('UserService', () => {
       const createdUserEntity = User.of(requestDto);
 
       const savedUser = User.of({
-        id: faker.random.number(),
+        id: faker.datatype.number(),
         firstName: firstName,
         lastName: lastName,
         isActive: true,
@@ -61,13 +61,13 @@ describe('UserService', () => {
     it('모든 유저 정보 목록을 성공적으로 불러온다.', async () => {
       const existingUserList = [
         User.of({
-          id: faker.random.number(),
+          id: faker.datatype.number(),
           firstName: faker.lorem.sentence(),
           lastName: faker.lorem.sentence(),
           isActive: true,
         }),
         User.of({
-          id: faker.random.number(),
+          id: faker.datatype.number(),
           firstName: faker.lorem.sentence(),
           lastName: faker.lorem.sentence(),
           isActive: true,
@@ -87,7 +87,7 @@ describe('UserService', () => {
 
   describe('유저 정보 조회', () => {
     it('존재하지 않는 유저 정보를 조회할 경우 NotFoundError 발생한다.', async () => {
-      const userId = faker.random.number();
+      const userId = faker.datatype.number();
 
       const userRepositoryFindOneSpy = jest
         .spyOn(userRepository, 'findOne')
@@ -108,7 +108,7 @@ describe('UserService', () => {
     });
 
     it('유저 정보를 성공적으로 불러온다.', async () => {
-      const userId = faker.random.number();
+      const userId = faker.datatype.number();
 
       const existingUser = User.of({
         id: userId,
@@ -134,7 +134,7 @@ describe('UserService', () => {
 
   describe('유저 정보 수정', () => {
     it('존재하지 않는 유저 정보를 수정할 경우 NotFoundError 발생한다.', async () => {
-      const userId = faker.random.number();
+      const userId = faker.datatype.number();
 
       const requestDto: UserUpdateRequestDto = {
         firstName: faker.lorem.sentence(),
@@ -161,7 +161,7 @@ describe('UserService', () => {
     });
 
     it('유저 정보를 성공적으로 수정한다.', async () => {
-      const userId = faker.random.number();
+      const userId = faker.datatype.number();
 
       const requestDto: UserUpdateRequestDto = {
         firstName: faker.lorem.sentence(),
@@ -203,7 +203,7 @@ describe('UserService', () => {
 
   describe('유저 정보 삭제', () => {
     it('유저 정보를 성공적으로 삭제한다.', async () => {
-      const userId = faker.random.number();
+      const userId = faker.datatype.number();
 
       const userRepositoryDeleteSpy = jest
         .spyOn(userRepository, 'delete')
