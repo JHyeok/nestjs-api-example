@@ -16,7 +16,7 @@ export class UserService {
    * @returns {Promise<User>}
    */
   createUser(requestDto: UserCreateRequestDto): Promise<User> {
-    const user = this.userRepository.create(requestDto);
+    const user = this.userRepository.create(User.of(requestDto));
 
     return this.userRepository.save(user);
   }
@@ -61,13 +61,12 @@ export class UserService {
     id: number,
     requestDto: UserUpdateRequestDto,
   ): Promise<User> {
-    const userToUpdate = await this.getUserById(id);
+    const user = await this.getUserById(id);
+    const { firstName, lastName, isActive } = requestDto;
 
-    userToUpdate.firstName = requestDto.firstName;
-    userToUpdate.lastName = requestDto.lastName;
-    userToUpdate.isActive = requestDto.isActive;
+    user.update(firstName, lastName, isActive);
 
-    return this.userRepository.save(userToUpdate);
+    return this.userRepository.save(user);
   }
 
   /**

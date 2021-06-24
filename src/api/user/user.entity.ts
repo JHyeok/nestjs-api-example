@@ -26,4 +26,10 @@ export class User {
 
     return user;
   }
+
+  update(firstName: string, lastName: string, isActive: boolean): void {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.isActive = isActive;
+  }
 }
