@@ -52,6 +52,18 @@ $ docker-compose -f docker-compose.dev.yml down -v
 ## 실행
 
 ```bash
+$ npm run start
+
 # 개발환경으로 실행
 $ npm run start:dev
+```
+
+## 테스트
+
+```bash
+# 단위 테스트
+$ npm run test
+
+# E2E 테스트
+$ npm run test:e2e
 ```
