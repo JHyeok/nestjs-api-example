@@ -1,12 +1,12 @@
 import * as faker from 'faker';
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from './user.entity';
-import { UserService } from './user.service';
-import { UserCreateRequestDto } from './dto/user-create-request.dto';
-import { UserUpdateRequestDto } from './dto/user-update-request.dto';
+import { User } from 'src/api/user/user.entity';
+import { UserService } from 'src/api/user/user.service';
+import { UserCreateRequestDto } from 'src/api/user/dto/user-create-request.dto';
+import { UserUpdateRequestDto } from 'src/api/user/dto/user-update-request.dto';
 import { NotFoundException } from '@nestjs/common';
-import { UserRepository } from './user.repository';
-import Message from './user.message';
+import { UserRepository } from 'src/api/user/user.repository';
+import Message from 'src/api/user/user.message';
 import { DeleteResult } from 'typeorm';
 
 describe('UserService', () => {

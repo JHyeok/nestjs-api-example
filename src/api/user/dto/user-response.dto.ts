@@ -1,4 +1,4 @@
-import { User } from '../user.entity';
+import { User } from 'src/api/user/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserResponseDto {

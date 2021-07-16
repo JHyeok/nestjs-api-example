@@ -2,9 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { UserRepository } from '../../src/api/user/user.repository';
-import { TypeOrmConfigService } from '../../src/database/ormconfig.service';
-import { AppModule } from '../../src/app.module';
+import { UserRepository } from 'src/api/user/user.repository';
+import { TypeOrmConfigService } from 'src/database/ormconfig.service';
+import { AppModule } from 'src/app.module';
 
 class MockTypeOrmConfigServer implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
