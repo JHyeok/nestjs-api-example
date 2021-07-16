@@ -11,8 +11,8 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { UserService } from './user.service';
-import { User } from './user.entity';
+import { UserService } from 'src/api/user/user.service';
+import { User } from 'src/api/user/user.entity';
 import {
   ApiTags,
   ApiOperation,
@@ -20,9 +20,9 @@ import {
   ApiOkResponse,
   ApiNoContentResponse,
 } from '@nestjs/swagger';
-import { UserCreateRequestDto } from './dto/user-create-request.dto';
-import { UserUpdateRequestDto } from './dto/user-update-request.dto';
-import { UserResponseDto } from './dto/user-response.dto';
+import { UserCreateRequestDto } from 'src/api/user/dto/user-create-request.dto';
+import { UserUpdateRequestDto } from 'src/api/user/dto/user-update-request.dto';
+import { UserResponseDto } from 'src/api/user/dto/user-response.dto';
 
 @Controller('v1/users')
 @ApiTags('유저 API')
