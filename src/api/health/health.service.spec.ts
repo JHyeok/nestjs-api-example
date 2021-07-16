@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppService } from 'src/api/app/app.service';
+import { HealthService } from 'src/api/health/health.service';
 
-describe('AppService', () => {
-  let appService: AppService;
+describe('HealthService', () => {
+  let healthService: HealthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AppService],
+      providers: [HealthService],
     }).compile();
 
-    appService = module.get<AppService>(AppService);
+    healthService = module.get<HealthService>(HealthService);
   });
 
   describe('Health Check', () => {
     it('OK를 반환한다.', async () => {
       const existingResult: string = 'OK';
 
-      const result = appService.sendOk();
+      const result = healthService.sendOk();
 
       expect(result).toBe(existingResult);
     });
