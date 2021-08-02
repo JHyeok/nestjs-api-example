@@ -26,7 +26,8 @@
     "docker:down": "docker-compose down -v",
     "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -d src/migrations -n",
     "migration:create": "ts-node ./node_modules/typeorm/cli.js migration:create -d src/migrations -n",
-    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run"
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.4",
