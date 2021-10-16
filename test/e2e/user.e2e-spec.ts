@@ -38,7 +38,7 @@ describe('UserController (e2e)', () => {
   });
 
   describe('GET /v1/users', () => {
-    it('유저 목록을 반환한다.', async () => {
+    it('모든 유저 목록이 반환된다', async () => {
       await userRepository.save([
         { firstName: 'first-1', lastName: 'last-2' },
         { firstName: 'first-2', lastName: 'last-2' },
