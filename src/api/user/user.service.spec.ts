@@ -23,7 +23,7 @@ describe('UserService', () => {
   });
 
   describe('유저 정보 생성', () => {
-    it('유저 정보를 성공적으로 생성한다.', async () => {
+    it('유저 정보가 생성된다', async () => {
       const firstName = faker.lorem.sentence();
       const lastName = faker.lorem.sentence();
 
@@ -58,7 +58,7 @@ describe('UserService', () => {
   });
 
   describe('유저 목록 조회', () => {
-    it('모든 유저 정보 목록을 성공적으로 불러온다.', async () => {
+    it('모든 유저 정보를 조회해서 가져올 수 있다', async () => {
       const existingUserList = [
         User.of({
           id: faker.datatype.number(),
@@ -86,7 +86,7 @@ describe('UserService', () => {
   });
 
   describe('유저 정보 조회', () => {
-    it('존재하지 않는 유저 정보를 조회할 경우 NotFoundError 발생한다.', async () => {
+    it('존재하지 않는 유저 정보를 조회할 경우 NotFoundError가 반환된다', async () => {
       const userId = faker.datatype.number();
 
       const userRepositoryFindOneSpy = jest
@@ -107,7 +107,7 @@ describe('UserService', () => {
       });
     });
 
-    it('유저 정보를 성공적으로 불러온다.', async () => {
+    it('유저 정보를 조회해서 가져올 수 있다', async () => {
       const userId = faker.datatype.number();
 
       const existingUser = User.of({
@@ -133,7 +133,7 @@ describe('UserService', () => {
   });
 
   describe('유저 정보 수정', () => {
-    it('존재하지 않는 유저 정보를 수정할 경우 NotFoundError 발생한다.', async () => {
+    it('존재하지 않는 유저 정보를 수정할 경우 NotFoundError가 반환된다', async () => {
       const userId = faker.datatype.number();
 
       const requestDto: UserUpdateRequestDto = {
@@ -160,7 +160,7 @@ describe('UserService', () => {
       });
     });
 
-    it('유저 정보를 성공적으로 수정한다.', async () => {
+    it('유저 정보가 수정된다', async () => {
       const userId = faker.datatype.number();
 
       const requestDto: UserUpdateRequestDto = {
@@ -202,7 +202,7 @@ describe('UserService', () => {
   });
 
   describe('유저 정보 삭제', () => {
-    it('유저 정보를 성공적으로 삭제한다.', async () => {
+    it('유저 정보가 삭제된다', async () => {
       const userId = faker.datatype.number();
 
       const userRepositoryDeleteSpy = jest

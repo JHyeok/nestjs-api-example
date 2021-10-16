@@ -13,7 +13,7 @@ describe('HealthService', () => {
   });
 
   describe('Health Check', () => {
-    it('OK를 반환한다.', async () => {
+    it('OK가 반환된다', async () => {
       const existingResult: string = 'OK';
 
       const result = healthService.sendOk();
