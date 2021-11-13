@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { NotFoundException, Injectable } from '@nestjs/common';
 import { UserRepository } from 'src/api/user/user.repository';
 import { User } from 'src/api/user/user.entity';
@@ -43,7 +44,7 @@ export class UserService {
       },
     });
 
-    if (user === undefined) {
+    if (_.isEmpty(user) === true) {
       throw new NotFoundException(Message.NOT_FOUND_USER);
     }
 
