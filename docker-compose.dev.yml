@@ -19,7 +19,7 @@ services:
   server:
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: nest-server
     restart: always
     volumes:
