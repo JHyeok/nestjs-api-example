@@ -22,8 +22,8 @@ describe('UserService', () => {
     userRepository = module.get<UserRepository>(UserRepository);
   });
 
-  describe('유저 정보 생성', () => {
-    it('유저 정보가 생성된다', async () => {
+  describe('createUser', () => {
+    it('유저를 생성하고, 생성한 유저를 반환한다', async () => {
       const firstName = faker.lorem.sentence();
       const lastName = faker.lorem.sentence();
 
@@ -57,8 +57,8 @@ describe('UserService', () => {
     });
   });
 
-  describe('유저 목록 조회', () => {
-    it('모든 유저 정보를 조회해서 가져올 수 있다', async () => {
+  describe('getUsers', () => {
+    it('생성된 모든 유저 목록을 반환한다', async () => {
       const existingUserList = [
         User.of({
           id: faker.datatype.number(),
@@ -85,8 +85,8 @@ describe('UserService', () => {
     });
   });
 
-  describe('유저 정보 조회', () => {
-    it('존재하지 않는 유저 정보를 조회할 경우 NotFoundError가 반환된다', async () => {
+  describe('getUserById', () => {
+    it('생성되지 않은 유저의 id가 주어진다면 유저를 찾을 수 없다는 예외를 던진다', async () => {
       const userId = faker.datatype.number();
 
       const userRepositoryFindOneSpy = jest
@@ -107,7 +107,7 @@ describe('UserService', () => {
       });
     });
 
-    it('유저 정보를 조회해서 가져올 수 있다', async () => {
+    it('생성된 유저의 id가 주어진다면 해당 id의 유저를 반환한다', async () => {
       const userId = faker.datatype.number();
 
       const existingUser = User.of({
@@ -132,8 +132,8 @@ describe('UserService', () => {
     });
   });
 
-  describe('유저 정보 수정', () => {
-    it('존재하지 않는 유저 정보를 수정할 경우 NotFoundError가 반환된다', async () => {
+  describe('updateUser', () => {
+    it('생성되지 않은 유저의 id가 주어진다면 유저를 찾을 수 없다는 예외를 던진다', async () => {
       const userId = faker.datatype.number();
 
       const requestDto: UserUpdateRequestDto = {
@@ -160,7 +160,7 @@ describe('UserService', () => {
       });
     });
 
-    it('유저 정보가 수정된다', async () => {
+    it('생성된 유저의 id가 주어진다면 해당 id의 유저를 수정하고 수정된 유저를 반환한다', async () => {
       const userId = faker.datatype.number();
 
       const requestDto: UserUpdateRequestDto = {
@@ -201,15 +201,15 @@ describe('UserService', () => {
     });
   });
 
-  describe('유저 정보 삭제', () => {
-    it('유저 정보가 삭제된다', async () => {
+  describe('deleteUser', () => {
+    it('생성된 유저의 id가 주어진다면 생성된 유저를 삭제한다', async () => {
       const userId = faker.datatype.number();
 
       const userRepositoryDeleteSpy = jest
         .spyOn(userRepository, 'delete')
         .mockResolvedValue({} as DeleteResult);
 
-      const result = await userService.removeUser(userId);
+      const result = await userService.deleteUser(userId);
 
       expect(userRepositoryDeleteSpy).toHaveBeenCalledWith(userId);
       expect(result).toBe(undefined);
