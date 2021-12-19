@@ -81,11 +81,11 @@ export class UserController {
   @Delete(':id')
   @ApiOperation({ summary: '유저 삭제 API' })
   @ApiNoContentResponse({ description: 'Id가 일치하는 유저 정보를 삭제한다.' })
-  async remove(
+  async delete(
     @Param('id', new ParseIntPipe()) id: number,
     @Res() res: Response,
   ) {
-    await this.userService.removeUser(id);
+    await this.userService.deleteUser(id);
 
     return res.status(HttpStatus.NO_CONTENT).send();
   }
