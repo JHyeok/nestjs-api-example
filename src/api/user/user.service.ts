@@ -76,7 +76,7 @@ export class UserService {
    * @param {number} id - 유저 Id
    * @returns {Promise<void>}
    */
-  async removeUser(id: number): Promise<void> {
+  async deleteUser(id: number): Promise<void> {
     await this.userRepository.delete(id);
   }
 }
