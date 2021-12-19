@@ -47,16 +47,17 @@ describe('UserController (e2e)', () => {
   });
 
   describe('GET /v1/users', () => {
-    it('모든 유저 목록이 반환된다', async () => {
+    it('200(OK)과 생성된 모든 유저 목록을 json 타입으로 응답한다', async () => {
       await userRepository.save([
         { firstName: 'JaeHyeok', lastName: 'Kim' },
         { firstName: '재혁', lastName: '김' },
       ]);
 
-      const response = await request(app.getHttpServer()).get('/v1/users');
+      const res = await request(app.getHttpServer()).get('/v1/users');
 
-      expect(response.status).toBe(200);
-      const { body } = response;
+      expect(res.status).toBe(200);
+      expect(res.type).toEqual(expect.stringContaining('json'));
+      const { body } = res;
       expect(body).toEqual([
         {
           id: expect.any(Number),
@@ -75,19 +76,18 @@ describe('UserController (e2e)', () => {
   });
 
   describe('POST /v1/users', () => {
-    it('유저를 생성한다', async () => {
+    it('유저를 생성하고, 201(Created)과 유저를 응답한다', async () => {
       const firstName = 'JaeHyeok';
       const lastName = 'Kim';
 
-      const response = await request(app.getHttpServer())
-        .post('/v1/users')
-        .send({
-          firstName: firstName,
-          lastName: lastName,
-        });
+      const res = await request(app.getHttpServer()).post('/v1/users').send({
+        firstName,
+        lastName,
+      });
 
-      expect(response.status).toBe(201);
-      const { body } = response;
+      expect(res.status).toBe(201);
+      expect(res.type).toEqual(expect.stringContaining('json'));
+      const { body } = res;
       expect(body.firstName).toBe(firstName);
       expect(body.lastName).toBe(lastName);
       expect(body.isActive).toBe(true);
