@@ -16,7 +16,7 @@ export class UserService {
    * @param {UserCreateRequestDto} requestDto - 유저 생성 Dto
    * @returns {Promise<User>}
    */
-  createUser(requestDto: UserCreateRequestDto): Promise<User> {
+  async createUser(requestDto: UserCreateRequestDto): Promise<User> {
     const user = this.userRepository.create(User.of(requestDto));
 
     return this.userRepository.save(user);
@@ -27,7 +27,7 @@ export class UserService {
    *
    * @returns {Promise<User[]>}
    */
-  getUsers(): Promise<User[]> {
+  async getUsers(): Promise<User[]> {
     return this.userRepository.find();
   }
 
