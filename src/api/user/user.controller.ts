@@ -33,7 +33,7 @@ export class UserController {
   @ApiOperation({ summary: '모든 유저 조회 API' })
   @ApiOkResponse({ description: '모든 유저를 조회한다.', type: User })
   async findAll(@Res() res: Response) {
-    const users: User[] = await this.userService.getUsers();
+    const users = await this.userService.getUsers();
 
     return res.status(HttpStatus.OK).json(users);
   }
@@ -42,7 +42,7 @@ export class UserController {
   @ApiOperation({ summary: '유저 생성 API', description: '유저를 생성한다.' })
   @ApiCreatedResponse({ description: '유저를 생성한다.', type: User })
   async create(@Body() requestDto: UserCreateRequestDto, @Res() res: Response) {
-    const user: User = await this.userService.createUser(requestDto);
+    const user = await this.userService.createUser(requestDto);
 
     return res.status(HttpStatus.CREATED).json(user);
   }
@@ -57,7 +57,7 @@ export class UserController {
     @Param('id', new ParseIntPipe()) id: number,
     @Res() res: Response,
   ) {
-    const user: User = await this.userService.getUserById(id);
+    const user = await this.userService.getUserById(id);
 
     return res.status(HttpStatus.OK).json(new UserResponseDto(user));
   }
@@ -73,7 +73,7 @@ export class UserController {
     @Body() requestDto: UserUpdateRequestDto,
     @Res() res: Response,
   ) {
-    const updatedUser: User = await this.userService.updateUser(id, requestDto);
+    const updatedUser = await this.userService.updateUser(id, requestDto);
 
     return res.status(HttpStatus.OK).json(updatedUser);
   }
