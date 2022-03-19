@@ -6,7 +6,6 @@ import { UserCreateRequestDto } from 'src/api/user/dto/user-create-request.dto';
 import { UserUpdateRequestDto } from 'src/api/user/dto/user-update-request.dto';
 import { NotFoundException } from '@nestjs/common';
 import { UserRepository } from 'src/api/user/user.repository';
-import Message from 'src/api/user/user.message';
 import { DeleteResult } from 'typeorm';
 
 describe('UserService', () => {
@@ -88,23 +87,15 @@ describe('UserService', () => {
   describe('getUserById', () => {
     it('생성되지 않은 유저의 id가 주어진다면 유저를 찾을 수 없다는 예외를 던진다', async () => {
       const userId = faker.datatype.number();
+      jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
 
-      const userRepositoryFindOneSpy = jest
-        .spyOn(userRepository, 'findOne')
-        .mockResolvedValue(undefined);
-
-      try {
+      const result = async () => {
         await userService.getUserById(userId);
-      } catch (e) {
-        expect(e).toBeInstanceOf(NotFoundException);
-        expect(e.message).toBe(Message.NOT_FOUND_USER);
-      }
+      };
 
-      expect(userRepositoryFindOneSpy).toHaveBeenCalledWith({
-        where: {
-          id: userId,
-        },
-      });
+      await expect(result).rejects.toThrowError(
+        new NotFoundException('유저 정보를 찾을 수 없습니다.'),
+      );
     });
 
     it('생성된 유저의 id가 주어진다면 해당 id의 유저를 반환한다', async () => {
@@ -135,29 +126,20 @@ describe('UserService', () => {
   describe('updateUser', () => {
     it('생성되지 않은 유저의 id가 주어진다면 유저를 찾을 수 없다는 예외를 던진다', async () => {
       const userId = faker.datatype.number();
-
       const requestDto: UserUpdateRequestDto = {
         firstName: faker.lorem.sentence(),
         lastName: faker.lorem.sentence(),
         isActive: false,
       };
+      jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
 
-      const userRepositoryFindOneSpy = jest
-        .spyOn(userRepository, 'findOne')
-        .mockResolvedValue(undefined);
-
-      try {
+      const result = async () => {
         await userService.updateUser(userId, requestDto);
-      } catch (e) {
-        expect(e).toBeInstanceOf(NotFoundException);
-        expect(e.message).toBe(Message.NOT_FOUND_USER);
-      }
+      };
 
-      expect(userRepositoryFindOneSpy).toHaveBeenCalledWith({
-        where: {
-          id: userId,
-        },
-      });
+      await expect(result).rejects.toThrowError(
+        new NotFoundException('유저 정보를 찾을 수 없습니다.'),
+      );
     });
 
     it('생성된 유저의 id가 주어진다면 해당 id의 유저를 수정하고 수정된 유저를 반환한다', async () => {
