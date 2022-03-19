@@ -1,4 +1,3 @@
-import * as faker from 'faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User } from 'src/api/user/user.entity';
 import { UserService } from 'src/api/user/user.service';
@@ -23,27 +22,22 @@ describe('UserService', () => {
 
   describe('createUser', () => {
     it('유저를 생성하고, 생성한 유저를 반환한다', async () => {
-      const firstName = faker.lorem.sentence();
-      const lastName = faker.lorem.sentence();
-
+      const firstName = '재혁';
+      const lastName = '김';
       const requestDto: UserCreateRequestDto = {
         firstName: firstName,
         lastName: lastName,
       };
-
       const createdUserEntity = User.of(requestDto);
-
       const savedUser = User.of({
-        id: faker.datatype.number(),
+        id: 1,
         firstName: firstName,
         lastName: lastName,
         isActive: true,
       });
-
       const userRepositoryCreateSpy = jest
         .spyOn(userRepository, 'create')
         .mockReturnValue(createdUserEntity);
-
       const userRepositorySaveSpy = jest
         .spyOn(userRepository, 'save')
         .mockResolvedValue(savedUser);
@@ -60,19 +54,18 @@ describe('UserService', () => {
     it('생성된 모든 유저 목록을 반환한다', async () => {
       const existingUserList = [
         User.of({
-          id: faker.datatype.number(),
-          firstName: faker.lorem.sentence(),
-          lastName: faker.lorem.sentence(),
+          id: 1,
+          firstName: '재혁',
+          lastName: '김',
           isActive: true,
         }),
         User.of({
-          id: faker.datatype.number(),
-          firstName: faker.lorem.sentence(),
-          lastName: faker.lorem.sentence(),
+          id: 2,
+          firstName: '길동',
+          lastName: '홍',
           isActive: true,
         }),
       ];
-
       const userRepositoryFindSpy = jest
         .spyOn(userRepository, 'find')
         .mockResolvedValue(existingUserList);
@@ -86,7 +79,7 @@ describe('UserService', () => {
 
   describe('getUserById', () => {
     it('생성되지 않은 유저의 id가 주어진다면 유저를 찾을 수 없다는 예외를 던진다', async () => {
-      const userId = faker.datatype.number();
+      const userId = 1;
       jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
 
       const result = async () => {
@@ -99,15 +92,13 @@ describe('UserService', () => {
     });
 
     it('생성된 유저의 id가 주어진다면 해당 id의 유저를 반환한다', async () => {
-      const userId = faker.datatype.number();
-
+      const userId = 1;
       const existingUser = User.of({
         id: userId,
-        firstName: faker.lorem.sentence(),
-        lastName: faker.lorem.sentence(),
+        firstName: '재혁',
+        lastName: '김',
         isActive: true,
       });
-
       const userRepositoryFindOneSpy = jest
         .spyOn(userRepository, 'findOne')
         .mockResolvedValue(existingUser);
@@ -125,10 +116,10 @@ describe('UserService', () => {
 
   describe('updateUser', () => {
     it('생성되지 않은 유저의 id가 주어진다면 유저를 찾을 수 없다는 예외를 던진다', async () => {
-      const userId = faker.datatype.number();
+      const userId = 1;
       const requestDto: UserUpdateRequestDto = {
-        firstName: faker.lorem.sentence(),
-        lastName: faker.lorem.sentence(),
+        firstName: '길동',
+        lastName: '김',
         isActive: false,
       };
       jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
@@ -143,30 +134,25 @@ describe('UserService', () => {
     });
 
     it('생성된 유저의 id가 주어진다면 해당 id의 유저를 수정하고 수정된 유저를 반환한다', async () => {
-      const userId = faker.datatype.number();
-
+      const userId = 1;
       const requestDto: UserUpdateRequestDto = {
-        firstName: faker.lorem.sentence(),
-        lastName: faker.lorem.sentence(),
+        firstName: '길동',
+        lastName: '김',
         isActive: false,
       };
-
       const existingUser = User.of({
         id: userId,
-        firstName: faker.lorem.sentence(),
-        lastName: faker.lorem.sentence(),
+        firstName: '재혁',
+        lastName: '김',
         isActive: true,
       });
-
       const savedUser = User.of({
         id: userId,
         ...requestDto,
       });
-
       const userRepositoryFindOneSpy = jest
         .spyOn(userRepository, 'findOne')
         .mockResolvedValue(existingUser);
-
       const userRepositorySaveSpy = jest
         .spyOn(userRepository, 'save')
         .mockResolvedValue(savedUser);
@@ -185,8 +171,7 @@ describe('UserService', () => {
 
   describe('deleteUser', () => {
     it('생성된 유저의 id가 주어진다면 생성된 유저를 삭제한다', async () => {
-      const userId = faker.datatype.number();
-
+      const userId = 1;
       const userRepositoryDeleteSpy = jest
         .spyOn(userRepository, 'delete')
         .mockResolvedValue({} as DeleteResult);
