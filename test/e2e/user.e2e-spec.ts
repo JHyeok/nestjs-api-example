@@ -14,7 +14,7 @@ class MockTypeOrmConfigServer implements TypeOrmOptionsFactory {
       database: ':memory:',
       synchronize: true,
       dropSchema: true,
-      entities: ['src/api/**/*.entity{.ts,.js}'],
+      entities: ['src/api/**/*.entity.ts'],
     };
   }
 }
@@ -26,15 +26,15 @@ describe('UserController (e2e)', () => {
   let userRepository: UserRepository;
 
   beforeAll(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
+    const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
       .overrideProvider(TypeOrmConfigService)
       .useValue(mockTypeOrmConfigService)
       .compile();
 
-    app = moduleFixture.createNestApplication();
-    userRepository = moduleFixture.get<UserRepository>(UserRepository);
+    app = module.createNestApplication();
+    userRepository = module.get<UserRepository>(UserRepository);
     await app.init();
   });
 
