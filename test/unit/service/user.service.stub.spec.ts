@@ -7,7 +7,7 @@ import { NotFoundException } from '@nestjs/common';
 import { UserRepository } from 'src/api/user/user.repository';
 import { DeleteResult } from 'typeorm';
 
-describe('UserService', () => {
+describe('UserService (Stub)', () => {
   let userService: UserService;
   let userRepository: UserRepository;
 
