@@ -109,8 +109,10 @@ describe('UserService', () => {
       await userRepository.save({ firstName: '재혁', lastName: '김' });
 
       await userService.deleteUser(userId);
-      const result = await userRepository.findOne({ id: userId });
 
+      const result = await userRepository.findOne({
+        where: { id: userId },
+      });
       expect(result).toBeUndefined();
     });
   });
