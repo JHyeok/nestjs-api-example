@@ -3,13 +3,21 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UserResponseDto {
   @ApiProperty({ description: '이름' })
-  private firstName?: string;
+  private readonly _firstName: string;
   @ApiProperty({ description: '성' })
-  private lastName?: string;
+  private readonly _lastName: string;
 
   constructor(user: User) {
     const { firstName, lastName } = user;
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this._firstName = firstName;
+    this._lastName = lastName;
+  }
+
+  get firstName(): string {
+    return this._firstName;
+  }
+
+  get lastName(): string {
+    return this._lastName;
   }
 }

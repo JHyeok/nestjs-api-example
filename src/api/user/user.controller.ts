@@ -33,7 +33,7 @@ export class UserController {
   @ApiOperation({ summary: '모든 유저 조회 API' })
   @ApiOkResponse({ description: '모든 유저를 조회한다.', type: User })
   async findAll(@Res() res: Response) {
-    const users = await this.userService.getUsers();
+    const users = await this.userService.findAll();
 
     return res.status(HttpStatus.OK).json(users);
   }
@@ -57,9 +57,9 @@ export class UserController {
     @Param('id', new ParseIntPipe()) id: number,
     @Res() res: Response,
   ) {
-    const user = await this.userService.getUserById(id);
+    const responseDto = await this.userService.findById(id);
 
-    return res.status(HttpStatus.OK).json(new UserResponseDto(user));
+    return res.status(HttpStatus.OK).json(responseDto);
   }
 
   @Put(':id')

@@ -5,6 +5,7 @@ import { User } from 'src/api/user/user.entity';
 import { UserCreateRequestDto } from 'src/api/user/dto/user-create-request.dto';
 import { UserUpdateRequestDto } from 'src/api/user/dto/user-update-request.dto';
 import Message from 'src/api/user/user.message';
+import { UserResponseDto } from './dto/user-response.dto';
 
 @Injectable()
 export class UserService {
@@ -27,7 +28,7 @@ export class UserService {
    *
    * @returns {Promise<User[]>}
    */
-  async getUsers(): Promise<User[]> {
+  async findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
@@ -35,20 +36,12 @@ export class UserService {
    * 유저 Id에 해당하는 유저 정보를 조회한다.
    *
    * @param {number} id - 유저 Id
-   * @returns {Promise<User>}
+   * @returns {Promise<UserResponseDto>}
    */
-  async getUserById(id: number): Promise<User> {
-    const user = await this.userRepository.findOne({
-      where: {
-        id: id,
-      },
-    });
+  async findById(id: number): Promise<UserResponseDto> {
+    const user = await this.findUserById(id);
 
-    if (_.isEmpty(user) === true) {
-      throw new NotFoundException(Message.NOT_FOUND_USER);
-    }
-
-    return user;
+    return new UserResponseDto(user);
   }
 
   /**
@@ -62,12 +55,31 @@ export class UserService {
     id: number,
     requestDto: UserUpdateRequestDto,
   ): Promise<User> {
-    const user = await this.getUserById(id);
+    const user = await this.findUserById(id);
     const { firstName, lastName, isActive } = requestDto;
 
     user.update(firstName, lastName, isActive);
 
     return this.userRepository.save(user);
+  }
+
+  /**
+   * 유저 Id에 해당하는 유저 정보를 반환한다.
+   *
+   * @param {number} id - 유저 Id
+   * @returns {Promise<User>}
+   * @private
+   */
+  private async findUserById(id: number): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: { id: id },
+    });
+
+    if (_.isEmpty(user) === true) {
+      throw new NotFoundException(Message.NOT_FOUND_USER);
+    }
+
+    return user;
   }
 
   /**
