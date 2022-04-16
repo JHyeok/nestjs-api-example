@@ -1,11 +1,11 @@
-import _ from 'lodash';
 import { NotFoundException, Injectable } from '@nestjs/common';
 import { UserRepository } from 'src/api/user/user.repository';
 import { User } from 'src/api/user/user.entity';
 import { UserCreateRequestDto } from 'src/api/user/dto/user-create-request.dto';
 import { UserUpdateRequestDto } from 'src/api/user/dto/user-update-request.dto';
+import { isEmpty } from 'src/util/is-empty';
 import Message from 'src/api/user/user.message';
-import { UserResponseDto } from './dto/user-response.dto';
+import { UserResponseDto } from 'src/api/user/dto/user-response.dto';
 
 @Injectable()
 export class UserService {
@@ -75,7 +75,7 @@ export class UserService {
       where: { id: id },
     });
 
-    if (_.isEmpty(user) === true) {
+    if (isEmpty(user) === true) {
       throw new NotFoundException(Message.NOT_FOUND_USER);
     }
 
