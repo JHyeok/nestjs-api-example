@@ -5,19 +5,19 @@ import { ApiProperty } from '@nestjs/swagger';
 export class User {
   @PrimaryGeneratedColumn()
   @ApiProperty({ description: 'id' })
-  id!: number;
+  id: number;
 
   @Column({ length: 50 })
   @ApiProperty({ description: '이름' })
-  firstName!: string;
+  firstName: string;
 
   @Column({ length: 50 })
   @ApiProperty({ description: '성' })
-  lastName!: string;
+  lastName: string;
 
   @Column({ default: true })
   @ApiProperty({ description: '활동' })
-  isActive!: boolean;
+  isActive: boolean;
 
   static of(params: Partial<User>): User {
     const user = new User();
