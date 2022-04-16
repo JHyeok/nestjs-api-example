@@ -9,7 +9,7 @@ import { UserCreateRequestDto } from 'src/api/user/dto/user-create-request.dto';
 import { UserUpdateRequestDto } from 'src/api/user/dto/user-update-request.dto';
 
 describe('UserService', () => {
-  let userService: UserService;
+  let sut: UserService;
   let userRepository: UserRepository;
 
   beforeAll(async () => {
@@ -18,7 +18,7 @@ describe('UserService', () => {
       providers: [UserService, UserRepository],
     }).compile();
 
-    userService = module.get<UserService>(UserService);
+    sut = module.get<UserService>(UserService);
     userRepository = module.get<UserRepository>(UserRepository);
   });
 
@@ -37,7 +37,7 @@ describe('UserService', () => {
         lastName: '김',
       };
 
-      const result = await userService.createUser(requestDto);
+      const result = await sut.createUser(requestDto);
 
       expect(result.id).toBe(1);
       expect(result.firstName).toBe('재혁');
@@ -46,12 +46,26 @@ describe('UserService', () => {
     });
   });
 
-  describe('getUserById', () => {
+  describe('findAll', () => {
+    it('생성된 모든 유저 목록을 반환한다', async () => {
+      await userRepository.save({ firstName: '재혁', lastName: '김' });
+      await userRepository.save({ firstName: '길동', lastName: '홍' });
+
+      const result = await sut.findAll();
+
+      expect(result[0].firstName).toBe('재혁');
+      expect(result[0].lastName).toBe('김');
+      expect(result[1].firstName).toBe('길동');
+      expect(result[1].lastName).toBe('홍');
+    });
+  });
+
+  describe('findById', () => {
     it('생성되지 않은 유저의 id가 주어진다면 유저를 찾을 수 없다는 예외를 던진다', async () => {
       const userId = 1;
 
       const result = async () => {
-        await userService.getUserById(userId);
+        await sut.findById(userId);
       };
 
       await expect(result).rejects.toThrowError(
@@ -63,9 +77,8 @@ describe('UserService', () => {
       const userId = 1;
       await userRepository.save({ firstName: '재혁', lastName: '김' });
 
-      const result = await userService.getUserById(userId);
+      const result = await sut.findById(userId);
 
-      expect(result.id).toBe(1);
       expect(result.firstName).toBe('재혁');
       expect(result.lastName).toBe('김');
     });
@@ -82,7 +95,7 @@ describe('UserService', () => {
       const userId = 1;
 
       const result = async () => {
-        await userService.updateUser(userId, requestDto);
+        await sut.updateUser(userId, requestDto);
       };
 
       await expect(result).rejects.toThrowError(
@@ -94,7 +107,7 @@ describe('UserService', () => {
       const userId = 1;
       await userRepository.save({ firstName: '재혁', lastName: '김' });
 
-      const result = await userService.updateUser(userId, requestDto);
+      const result = await sut.updateUser(userId, requestDto);
 
       expect(result.id).toBe(1);
       expect(result.firstName).toBe('길동');
@@ -108,7 +121,7 @@ describe('UserService', () => {
       const userId = 1;
       await userRepository.save({ firstName: '재혁', lastName: '김' });
 
-      await userService.deleteUser(userId);
+      await sut.deleteUser(userId);
 
       const result = await userRepository.findOne({
         where: { id: userId },

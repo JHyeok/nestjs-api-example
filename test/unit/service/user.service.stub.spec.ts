@@ -46,11 +46,11 @@ describe('UserService (Stub)', () => {
 
       expect(userRepositoryCreateSpy).toBeCalledWith(requestDto);
       expect(userRepositorySaveSpy).toBeCalledWith(createdUserEntity);
-      expect(result).toEqual(savedUser);
+      expect(result).toBe(savedUser);
     });
   });
 
-  describe('getUsers', () => {
+  describe('findAll', () => {
     it('생성된 모든 유저 목록을 반환한다', async () => {
       const existingUserList = [
         User.of({
@@ -70,20 +70,20 @@ describe('UserService (Stub)', () => {
         .spyOn(userRepository, 'find')
         .mockResolvedValue(existingUserList);
 
-      const result = await userService.getUsers();
+      const result = await userService.findAll();
 
       expect(userRepositoryFindSpy).toBeCalled();
-      expect(result).toBe(existingUserList);
+      expect(result).toStrictEqual(existingUserList);
     });
   });
 
-  describe('getUserById', () => {
+  describe('findById', () => {
     it('생성되지 않은 유저의 id가 주어진다면 유저를 찾을 수 없다는 예외를 던진다', async () => {
       const userId = 1;
       jest.spyOn(userRepository, 'findOne').mockResolvedValue(undefined);
 
       const result = async () => {
-        await userService.getUserById(userId);
+        await userService.findById(userId);
       };
 
       await expect(result).rejects.toThrowError(
@@ -103,14 +103,13 @@ describe('UserService (Stub)', () => {
         .spyOn(userRepository, 'findOne')
         .mockResolvedValue(existingUser);
 
-      const result = await userService.getUserById(userId);
+      const result = await userService.findById(userId);
 
       expect(userRepositoryFindOneSpy).toHaveBeenCalledWith({
-        where: {
-          id: userId,
-        },
+        where: { id: userId },
       });
-      expect(result).toBe(existingUser);
+      expect(result.firstName).toBe('재혁');
+      expect(result.lastName).toBe('김');
     });
   });
 
@@ -160,12 +159,10 @@ describe('UserService (Stub)', () => {
       const result = await userService.updateUser(userId, requestDto);
 
       expect(userRepositoryFindOneSpy).toHaveBeenCalledWith({
-        where: {
-          id: userId,
-        },
+        where: { id: userId },
       });
       expect(userRepositorySaveSpy).toHaveBeenCalledWith(savedUser);
-      expect(result).toEqual(savedUser);
+      expect(result).toBe(savedUser);
     });
   });
 
@@ -179,7 +176,7 @@ describe('UserService (Stub)', () => {
       const result = await userService.deleteUser(userId);
 
       expect(userRepositoryDeleteSpy).toHaveBeenCalledWith(userId);
-      expect(result).toBe(undefined);
+      expect(result).toBeUndefined();
     });
   });
 });
