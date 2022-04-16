@@ -9,6 +9,8 @@ import {
   ParseIntPipe,
   Res,
   HttpStatus,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from 'src/api/user/user.service';
@@ -47,19 +49,15 @@ export class UserController {
     return res.status(HttpStatus.CREATED).json(user);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   @ApiOperation({ summary: '유저 정보 조회 API' })
   @ApiOkResponse({
     description: 'Id가 일치하는 유저 정보를 조회한다.',
     type: UserResponseDto,
   })
-  async findOne(
-    @Param('id', new ParseIntPipe()) id: number,
-    @Res() res: Response,
-  ) {
-    const responseDto = await this.userService.findById(id);
-
-    return res.status(HttpStatus.OK).json(responseDto);
+  async findOne(@Param('id', new ParseIntPipe()) id: number) {
+    return await this.userService.findById(id);
   }
 
   @Put(':id')
