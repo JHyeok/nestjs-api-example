@@ -18,10 +18,10 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest --coverage",
+    "test": "jest",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
     "docker:build": "docker-compose up -d --build",
     "docker:down": "docker-compose down -v",
     "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -d src/migrations -n",
@@ -80,7 +80,7 @@
       "ts"
     ],
     "rootDir": ".",
-    "testRegex": ".spec.ts$",
+    "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
@@ -90,6 +90,6 @@
       "^src/(.*)$": "<rootDir>/src/$1"
     },
     "verbose": true,
-    "testTimeout": 10000
+    "testTimeout": 30000
   }
 }
