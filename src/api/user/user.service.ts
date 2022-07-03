@@ -3,7 +3,7 @@ import { UserRepository } from 'src/api/user/user.repository';
 import { User } from 'src/api/user/user.entity';
 import { UserCreateRequestDto } from 'src/api/user/dto/user-create-request.dto';
 import { UserUpdateRequestDto } from 'src/api/user/dto/user-update-request.dto';
-import { isEmpty } from 'src/util/is-empty';
+import { isEmpty } from 'src/util/shared.util';
 import Message from 'src/api/user/user.message';
 import { UserResponseDto } from 'src/api/user/dto/user-response.dto';
 
