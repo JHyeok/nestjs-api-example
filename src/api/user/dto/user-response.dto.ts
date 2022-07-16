@@ -1,4 +1,4 @@
-import { User } from 'src/api/user/user.entity';
+import { User } from '../user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
 
