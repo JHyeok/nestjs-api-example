@@ -32,10 +32,9 @@ describe('UserService', () => {
 
   describe('createUser', () => {
     it('유저를 생성하고, 생성한 유저를 반환한다', async () => {
-      const requestDto: UserCreateRequestDto = {
-        firstName: '재혁',
-        lastName: '김',
-      };
+      const requestDto = new UserCreateRequestDto();
+      requestDto.firstName = '재혁';
+      requestDto.lastName = '김';
 
       const result = await sut.createUser(requestDto);
 

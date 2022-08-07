@@ -24,27 +24,22 @@ describe('UserService (Stub)', () => {
     it('유저를 생성하고, 생성한 유저를 반환한다', async () => {
       const firstName = '재혁';
       const lastName = '김';
-      const requestDto: UserCreateRequestDto = {
-        firstName: firstName,
-        lastName: lastName,
-      };
-      const createdUserEntity = User.of(requestDto);
+      const requestDto = new UserCreateRequestDto();
+      requestDto.firstName = firstName;
+      requestDto.lastName = lastName;
+      const createdUserEntity = requestDto.toEntity();
       const savedUser = User.of({
         id: 1,
         firstName: firstName,
         lastName: lastName,
         isActive: true,
       });
-      const userRepositoryCreateSpy = jest
-        .spyOn(userRepository, 'create')
-        .mockReturnValue(createdUserEntity);
       const userRepositorySaveSpy = jest
         .spyOn(userRepository, 'save')
         .mockResolvedValue(savedUser);
 
       const result = await userService.createUser(requestDto);
 
-      expect(userRepositoryCreateSpy).toBeCalledWith(requestDto);
       expect(userRepositorySaveSpy).toBeCalledWith(createdUserEntity);
       expect(result).toBe(savedUser);
     });

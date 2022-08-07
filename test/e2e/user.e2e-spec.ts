@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { getConnection } from 'typeorm';
@@ -35,6 +35,10 @@ describe('UserController (e2e)', () => {
 
     app = module.createNestApplication();
     userRepository = module.get<UserRepository>(UserRepository);
+
+    app.useGlobalPipes(
+      new ValidationPipe({ transform: true, whitelist: true }),
+    );
     await app.init();
   });
 
@@ -81,8 +85,8 @@ describe('UserController (e2e)', () => {
       const lastName = 'Kim';
 
       const res = await request(app.getHttpServer()).post('/v1/users').send({
-        firstName,
-        lastName,
+        firstName: firstName,
+        lastName: lastName,
       });
 
       expect(res.status).toBe(201);
