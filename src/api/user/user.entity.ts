@@ -21,8 +21,16 @@ export class User {
 
   static of(params: Partial<User>): User {
     const user = new User();
-
     Object.assign(user, params);
+
+    return user;
+  }
+
+  static create(firstName: string, lastName: string) {
+    const user = new User();
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.isActive = true;
 
     return user;
   }
