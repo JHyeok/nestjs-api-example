@@ -61,9 +61,5 @@ $ yarn start:dev
 ## 테스트
 
 ```bash
-# Unit Test
 $ yarn test
-
-# E2E Test
-$ yarn test:e2e
 ```
