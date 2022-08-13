@@ -1,11 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { getConnection } from 'typeorm';
 import { UserRepository } from 'src/api/user/user.repository';
 import { TypeOrmConfigService } from 'src/database/ormconfig.service';
 import { AppModule } from 'src/app.module';
+import { setupApp } from '../../src/config/common';
 
 class MockTypeOrmConfigServer implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
@@ -36,9 +37,7 @@ describe('UserController (e2e)', () => {
     app = module.createNestApplication();
     userRepository = module.get<UserRepository>(UserRepository);
 
-    app.useGlobalPipes(
-      new ValidationPipe({ transform: true, whitelist: true }),
-    );
+    setupApp(app);
     await app.init();
   });
 
