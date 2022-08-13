@@ -1,21 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
-import { setupSwagger } from './util/swagger';
-import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from './config';
+import { setupApp, setupSwagger } from './config/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get<ConfigService>(ConfigService);
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-      whitelist: true,
-    }),
-  );
+  setupApp(app);
 
   app.use(helmet());
   app.enableCors();
