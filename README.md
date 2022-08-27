@@ -52,9 +52,10 @@ $ docker-compose -f docker-compose.dev.yml down -v
 ## 실행
 
 ```bash
-$ yarn start
+# 운영 환경으로 실행
+$ yarn start:prod
 
-# 개발환경으로 실행
+# 개발 환경으로 실행
 $ yarn start:dev
 ```
 
