@@ -4,7 +4,7 @@ import { User } from './user.entity';
 import { UserCreateRequestDto } from './dto/user-create-request.dto';
 import { UserUpdateRequestDto } from './dto/user-update-request.dto';
 import { isEmpty } from '../../util/shared.util';
-import Message from './user.message';
+import { UserMessage } from './user.message';
 import { UserResponseDto } from './dto/user-response.dto';
 
 @Injectable()
@@ -74,7 +74,7 @@ export class UserService {
     });
 
     if (isEmpty(user) === true) {
-      throw new NotFoundException(Message.NOT_FOUND_USER);
+      throw new NotFoundException(UserMessage.NOT_FOUND_USER);
     }
 
     return user;
