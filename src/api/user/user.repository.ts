@@ -1,5 +1,6 @@
-import { Repository, EntityRepository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { CustomRepository } from '../../decorator/typeorm-ex.decorator';
 
-@EntityRepository(User)
+@CustomRepository(User)
 export class UserRepository extends Repository<User> {}
