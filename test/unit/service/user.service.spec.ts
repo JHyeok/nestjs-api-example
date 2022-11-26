@@ -1,4 +1,4 @@
-import { getConnection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserModule } from 'src/api/user/user.module';
 import { getTestMysqlModule } from '../../util/get-test-mysql.module';
@@ -10,6 +10,7 @@ import { UserUpdateRequestDto } from 'src/api/user/dto/user-update-request.dto';
 
 describe('UserService', () => {
   let sut: UserService;
+  let dataSource: DataSource;
   let userRepository: UserRepository;
 
   beforeAll(async () => {
@@ -19,6 +20,7 @@ describe('UserService', () => {
     }).compile();
 
     sut = module.get<UserService>(UserService);
+    dataSource = module.get<DataSource>(DataSource);
     userRepository = module.get<UserRepository>(UserRepository);
   });
 
@@ -27,7 +29,7 @@ describe('UserService', () => {
   });
 
   afterAll(async () => {
-    await getConnection().close();
+    await dataSource.destroy();
   });
 
   describe('createUser', () => {
@@ -125,7 +127,7 @@ describe('UserService', () => {
       const result = await userRepository.findOne({
         where: { id: userId },
       });
-      expect(result).toBeUndefined();
+      expect(result).toBeNull();
     });
   });
 });

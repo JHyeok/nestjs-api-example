@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { getConnection } from 'typeorm';
 import { UserRepository } from 'src/api/user/user.repository';
 import { TypeOrmConfigService } from 'src/database/ormconfig.service';
 import { AppModule } from 'src/app.module';
@@ -46,7 +45,7 @@ describe('UserController (e2e)', () => {
   });
 
   afterAll(async () => {
-    await getConnection().close();
+    await app.close();
   });
 
   describe('GET /v1/users', () => {
