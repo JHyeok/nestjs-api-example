@@ -1,11 +1,11 @@
-FROM node:16.13.0-alpine AS builder
+FROM node:18.12.1-alpine AS builder
 
 COPY . /app
 WORKDIR /app
 
 RUN yarn install && yarn build
 
-FROM node:16.13.0-alpine
+FROM node:18.12.1-alpine
 
 ARG PROJECT_DIR=/usr/src/app
 
