@@ -1,17 +1,14 @@
 FROM node:18.12.1-alpine AS builder
 
-COPY . /app
-WORKDIR /app
+WORKDIR /usr/src/app
+COPY . .
 
 RUN yarn install && yarn build
 
 FROM node:18.12.1-alpine
 
-ARG PROJECT_DIR=/usr/src/app
-
-COPY --from=builder /app $PROJECT_DIR
-
-WORKDIR $PROJECT_DIR
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app ./
 
 RUN apk add --no-cache --update bash
 
