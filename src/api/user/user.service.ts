@@ -18,7 +18,7 @@ export class UserService {
    * @returns {Promise<User>}
    */
   async createUser(requestDto: UserCreateRequestDto): Promise<User> {
-    return this.userRepository.save(requestDto.toEntity());
+    return await this.userRepository.save(requestDto.toEntity());
   }
 
   /**
@@ -27,7 +27,7 @@ export class UserService {
    * @returns {Promise<User[]>}
    */
   async findAll(): Promise<User[]> {
-    return this.userRepository.find();
+    return await this.userRepository.find();
   }
 
   /**
@@ -58,7 +58,7 @@ export class UserService {
 
     user.update(firstName, lastName, isActive);
 
-    return this.userRepository.save(user);
+    return await this.userRepository.save(user);
   }
 
   /**
@@ -66,7 +66,6 @@ export class UserService {
    *
    * @param {number} id - 유저 Id
    * @returns {Promise<User>}
-   * @private
    */
   private async findUserById(id: number): Promise<User> {
     const user = await this.userRepository.findOne({
