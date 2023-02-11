@@ -3,7 +3,7 @@ FROM node:18.12.1-alpine AS builder
 WORKDIR /usr/src/app
 
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install --immutable --immutable-cache --check-cache
 
 COPY . .
 RUN yarn build
