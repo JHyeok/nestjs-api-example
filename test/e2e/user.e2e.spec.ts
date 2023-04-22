@@ -5,7 +5,7 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { UserRepository } from 'src/api/user/user.repository';
 import { TypeOrmConfigService } from 'src/database/ormconfig.service';
 import { AppModule } from 'src/app.module';
-import { setupApp } from '../../src/config/common';
+import { setupApp } from 'src/config/common';
 
 class MockTypeOrmConfigServer implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
