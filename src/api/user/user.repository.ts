@@ -3,4 +3,10 @@ import { User } from './user.entity';
 import { CustomRepository } from '../../decorator/typeorm-ex.decorator';
 
 @CustomRepository(User)
-export class UserRepository extends Repository<User> {}
+export class UserRepository extends Repository<User> {
+  async findOneByUserId(userId: number): Promise<User> {
+    return await this.findOne({
+      where: { id: userId },
+    });
+  }
+}

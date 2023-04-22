@@ -43,7 +43,7 @@ export class UserController {
   @ApiOperation({ summary: '유저 생성 API', description: '유저를 생성한다.' })
   @ApiCreatedResponse({ description: '유저를 생성한다.', type: User })
   async create(@Body() requestDto: UserCreateRequestDto, @Res() res: Response) {
-    const user = await this.userService.createUser(requestDto);
+    const user = await this.userService.create(requestDto);
 
     return res.status(HttpStatus.CREATED).json(user);
   }
@@ -74,7 +74,7 @@ export class UserController {
     @Body() requestDto: UserUpdateRequestDto,
     @Res() res: Response,
   ) {
-    const updatedUser = await this.userService.updateUser(id, requestDto);
+    const updatedUser = await this.userService.update(id, requestDto);
 
     return res.status(HttpStatus.OK).json(updatedUser);
   }
@@ -86,7 +86,7 @@ export class UserController {
     @Param('id', new ParseIntPipe()) id: number,
     @Res() res: Response,
   ) {
-    await this.userService.deleteUser(id);
+    await this.userService.delete(id);
 
     return res.status(HttpStatus.NO_CONTENT).send();
   }

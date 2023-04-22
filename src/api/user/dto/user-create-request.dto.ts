@@ -15,6 +15,14 @@ export class UserCreateRequestDto {
   @ApiProperty({ description: '성' })
   lastName: string;
 
+  static of(firstName: string, lastName: string) {
+    const dto = new UserCreateRequestDto();
+    dto.firstName = firstName;
+    dto.lastName = lastName;
+
+    return dto;
+  }
+
   toEntity(): User {
     return User.create(this.firstName, this.lastName);
   }

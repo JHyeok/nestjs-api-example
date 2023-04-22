@@ -18,4 +18,17 @@ export class UserUpdateRequestDto {
   @IsBoolean({ message: '활동(isActive)의 형식이 올바르지 않습니다.' })
   @ApiProperty({ description: '활동' })
   isActive: boolean;
+
+  static of(
+    firstName: string,
+    lastName: string,
+    isActive: boolean,
+  ): UserUpdateRequestDto {
+    const dto = new UserUpdateRequestDto();
+    dto.firstName = firstName;
+    dto.lastName = lastName;
+    dto.isActive = isActive;
+
+    return dto;
+  }
 }

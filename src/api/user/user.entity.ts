@@ -19,9 +19,11 @@ export class User {
   @ApiProperty({ description: '활동' })
   isActive: boolean;
 
-  static of(params: Partial<User>): User {
+  static of(firstName: string, lastName: string, isActive: boolean): User {
     const user = new User();
-    Object.assign(user, params);
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.isActive = isActive;
 
     return user;
   }

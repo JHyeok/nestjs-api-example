@@ -17,7 +17,7 @@ export class UserService {
    * @param {UserCreateRequestDto} requestDto - 유저 생성 Dto
    * @returns {Promise<User>}
    */
-  async createUser(requestDto: UserCreateRequestDto): Promise<User> {
+  async create(requestDto: UserCreateRequestDto): Promise<User> {
     return await this.userRepository.save(requestDto.toEntity());
   }
 
@@ -33,11 +33,11 @@ export class UserService {
   /**
    * 유저 Id에 해당하는 유저 정보를 조회한다.
    *
-   * @param {number} id - 유저 Id
+   * @param {number} userId - 유저 Id
    * @returns {Promise<UserResponseDto>}
    */
-  async findById(id: number): Promise<UserResponseDto> {
-    const user = await this.findUserById(id);
+  async findById(userId: number): Promise<UserResponseDto> {
+    const user = await this.findUserById(userId);
 
     return new UserResponseDto(user);
   }
@@ -45,15 +45,15 @@ export class UserService {
   /**
    * 유저 Id에 해당하는 유저 정보를 수정한다.
    *
-   * @param {number} id - 유저 Id
+   * @param {number} userId - 유저 Id
    * @param {UserUpdateRequestDto} requestDto - 유저 수정 Dto
    * @returns {Promise<User>}
    */
-  async updateUser(
-    id: number,
+  async update(
+    userId: number,
     requestDto: UserUpdateRequestDto,
   ): Promise<User> {
-    const user = await this.findUserById(id);
+    const user = await this.findUserById(userId);
     const { firstName, lastName, isActive } = requestDto;
 
     user.update(firstName, lastName, isActive);
@@ -62,30 +62,28 @@ export class UserService {
   }
 
   /**
+   * 유저 Id에 해당하는 유저 정보를 삭제한다.
+   *
+   * @param {number} userId - 유저 Id
+   * @returns {Promise<void>}
+   */
+  async delete(userId: number): Promise<void> {
+    await this.userRepository.delete(userId);
+  }
+
+  /**
    * 유저 Id에 해당하는 유저 정보를 반환한다.
    *
-   * @param {number} id - 유저 Id
+   * @param {number} userId - 유저 Id
    * @returns {Promise<User>}
    */
-  private async findUserById(id: number): Promise<User> {
-    const user = await this.userRepository.findOne({
-      where: { id: id },
-    });
+  private async findUserById(userId: number): Promise<User> {
+    const user = await this.userRepository.findOneByUserId(userId);
 
     if (isEmpty(user) === true) {
       throw new NotFoundException(UserMessage.NOT_FOUND_USER);
     }
 
     return user;
-  }
-
-  /**
-   * 유저 Id에 해당하는 유저 정보를 삭제한다.
-   *
-   * @param {number} id - 유저 Id
-   * @returns {Promise<void>}
-   */
-  async deleteUser(id: number): Promise<void> {
-    await this.userRepository.delete(id);
   }
 }
