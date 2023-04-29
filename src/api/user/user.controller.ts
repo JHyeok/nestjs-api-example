@@ -36,7 +36,7 @@ export class UserController {
   async findAll(@Res() res: Response) {
     const users = await this.userService.findAll();
 
-    return res.status(HttpStatus.OK).json(users);
+    res.status(HttpStatus.OK).json(users);
   }
 
   @Post()
@@ -45,7 +45,7 @@ export class UserController {
   async create(@Body() requestDto: UserCreateRequestDto, @Res() res: Response) {
     const user = await this.userService.create(requestDto);
 
-    return res.status(HttpStatus.CREATED).json(user);
+    res.status(HttpStatus.CREATED).json(user);
   }
 
   @Get(':id')
@@ -60,7 +60,7 @@ export class UserController {
   ) {
     const responseDto = await this.userService.findById(id);
 
-    return res.status(HttpStatus.OK).json(instanceToPlain(responseDto));
+    res.status(HttpStatus.OK).json(instanceToPlain(responseDto));
   }
 
   @Put(':id')
@@ -76,7 +76,7 @@ export class UserController {
   ) {
     const updatedUser = await this.userService.update(id, requestDto);
 
-    return res.status(HttpStatus.OK).json(updatedUser);
+    res.status(HttpStatus.OK).json(updatedUser);
   }
 
   @Delete(':id')
@@ -88,6 +88,6 @@ export class UserController {
   ) {
     await this.userService.delete(id);
 
-    return res.status(HttpStatus.NO_CONTENT).send();
+    res.status(HttpStatus.NO_CONTENT).send();
   }
 }

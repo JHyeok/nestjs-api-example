@@ -15,7 +15,7 @@ export class UserCreateRequestDto {
   @ApiProperty({ description: '성' })
   lastName: string;
 
-  static of(firstName: string, lastName: string) {
+  static of(firstName: string, lastName: string): UserCreateRequestDto {
     const dto = new UserCreateRequestDto();
     dto.firstName = firstName;
     dto.lastName = lastName;
