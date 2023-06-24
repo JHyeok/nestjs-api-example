@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from './user.service';
-import { User } from './user.entity';
+import { User } from './domain/user.entity';
 import {
   ApiTags,
   ApiOperation,

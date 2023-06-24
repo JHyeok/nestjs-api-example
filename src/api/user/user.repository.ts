@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { User } from './domain/user.entity';
 import { CustomRepository } from '../../decorator/typeorm-ex.decorator';
 import { plainToInstance } from 'class-transformer';
 import { UserName } from './domain/user-name';

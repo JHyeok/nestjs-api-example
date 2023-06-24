@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from 'src/api/user/user.entity';
+import { User } from 'src/api/user/domain/user.entity';
 import { UserService } from 'src/api/user/user.service';
 import { UserCreateRequestDto } from 'src/api/user/dto/user-create-request.dto';
 import { UserUpdateRequestDto } from 'src/api/user/dto/user-update-request.dto';
