@@ -9,4 +9,27 @@ export class UserRepository extends Repository<User> {
       where: { id: userId },
     });
   }
+
+  /*
+  async updateUser(user: User): Promise<void> {
+    await this.createQueryBuilder()
+      .update(User)
+      .set(user)
+      .where("id = :id", { id: user.id })
+      .execute();
+  }
+
+  async upsertUser(user: User): Promise<void> {
+    await this.upsert(user, ['id']);
+  }
+
+  async upsertUser(user: User): Promise<void> {
+    await this.createQueryBuilder()
+      .insert()
+      .into(User, ['id', 'firstName', 'lastName', 'isActive'])
+      .values(user)
+      .orUpdate(['firstName', 'lastName', 'isActive'], ['id'])
+      .execute();
+  }
+  */
 }
