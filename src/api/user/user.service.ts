@@ -6,6 +6,7 @@ import { UserUpdateRequestDto } from './dto/user-update-request.dto';
 import { isEmpty } from '../../util/shared.util';
 import { UserMessage } from './user.message';
 import { UserResponseDto } from './dto/user-response.dto';
+import { UserName } from './domain/user-name';
 
 @Injectable()
 export class UserService {
@@ -28,6 +29,15 @@ export class UserService {
    */
   async findAll(): Promise<User[]> {
     return await this.userRepository.find();
+  }
+
+  /**
+   * 모든 유저의 이름을 조회한다.
+   *
+   * @returns {Promise<UserName[]>}
+   */
+  async findAllName(): Promise<UserName[]> {
+    return await this.userRepository.findAllName();
   }
 
   /**
