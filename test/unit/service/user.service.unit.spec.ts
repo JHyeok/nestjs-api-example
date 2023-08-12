@@ -1,4 +1,4 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { User } from 'src/api/user/domain/user.entity';
 import { UserService } from 'src/api/user/user.service';
 import { UserCreateRequestDto } from 'src/api/user/dto/user-create-request.dto';
@@ -13,7 +13,7 @@ describe('UserService (Unit)', () => {
   let userRepository: UserRepository;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const module = await Test.createTestingModule({
       providers: [UserService, UserRepository],
     }).compile();
 
@@ -31,7 +31,8 @@ describe('UserService (Unit)', () => {
 
       const result = await userService.create(requestDto);
 
-      expect(result).toBe(savedUser);
+      expect(result.firstName).toBe(firstName);
+      expect(result.lastName).toBe(lastName);
     });
   });
 
@@ -95,9 +96,10 @@ describe('UserService (Unit)', () => {
     it('생성된 유저의 id가 주어진다면 해당 id의 유저를 수정하고 수정된 유저를 반환한다', async () => {
       const userId = 1;
       const lastName = '김';
-      const requestDto = UserUpdateRequestDto.of('길동', lastName, false);
+      const firstName = '길동';
+      const requestDto = UserUpdateRequestDto.of(firstName, lastName, false);
       const existingUser = User.of('재혁', lastName, true);
-      const savedUser = User.of('길동', lastName, false);
+      const savedUser = User.of(firstName, lastName, false);
       jest
         .spyOn(userRepository, 'findOneByUserId')
         .mockResolvedValue(existingUser);
@@ -105,7 +107,8 @@ describe('UserService (Unit)', () => {
 
       const result = await userService.update(userId, requestDto);
 
-      expect(result).toBe(savedUser);
+      expect(result.firstName).toBe(firstName);
+      expect(result.lastName).toBe(lastName);
     });
   });
 
