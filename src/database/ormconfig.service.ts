@@ -17,6 +17,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       entities: [__dirname + '/../../**/*.entity{.ts,.js}'],
       synchronize: this.configService.isEnv('development'),
       logging: this.configService.isEnv('development'),
+      poolSize: parseInt(this.configService.get('DB_POOL_SIZE')),
     };
   }
 }
