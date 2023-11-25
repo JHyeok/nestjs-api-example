@@ -3,8 +3,8 @@ import { Exclude, Expose } from 'class-transformer';
 @Exclude()
 export class UserName {
   @Expose()
-  private firstName: string;
+  firstName: string;
 
   @Expose()
-  private lastName: string;
+  lastName: string;
 }
