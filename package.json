@@ -61,7 +61,7 @@
     "@types/express-rate-limit": "^6.0.0",
     "@types/helmet": "^4.0.0",
     "@types/jest": "^29.5.10",
-    "@types/node": "^18.18.13",
+    "@types/node": "^20.10.0",
     "@types/supertest": "^2.0.16",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
