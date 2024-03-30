@@ -21,16 +21,24 @@ yarn install
 
 ## Docker 로컬 개발환경
 
-`docker-compose`를 사용해서 E2E 테스트, 통합 테스트를 위한 테스트 데이터베이스 환경을 구성할 수 있습니다.
+docker-compose.yml
+- E2E 테스트, 통합 테스트를 위한 테스트 데이터베이스 환경을 구성할 수 있습니다.
+
+docker-compose.dev.yml
+- DB와 NestJS 앱을 실행하는 목적으로 사용합니다.
+- Dockerfile.dev를 사용합니다.
 
 Dockerfile.dev는 로컬에서 개발 환경으로 사용하는 목적이고 Dockerfile은 운영 환경에서 사용할 수 있도록 최적화했습니다.
 
 ```bash
-# 데이터베이스 실행
+# 테스트 데이터베이스 실행
 $ docker-compose up -d
 
 # 실행
 $ docker-compose -f docker-compose.dev.yml up -d
+
+# 빌드
+$ docker-compose -f docker-compose.dev.yml build
 
 # 재시작
 $ docker-compose -f docker-compose.dev.yml restart
