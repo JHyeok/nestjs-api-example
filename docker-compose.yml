@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   db:
-    image: mysql:8.0.36
+    image: mysql:8.3.0
     container_name: nestjs-test-db
     ports:
       - "3306:3306"
