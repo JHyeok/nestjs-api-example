@@ -1,4 +1,4 @@
-FROM node:20.9.0-alpine AS builder
+FROM node:20.12.2-alpine AS builder
 
 WORKDIR /usr/src/app
 
@@ -10,7 +10,7 @@ RUN yarn build
 
 RUN yarn install --production
 
-FROM node:20.9.0-alpine AS deploy
+FROM node:20.12.2-alpine AS deploy
 
 ENV NODE_ENV production
 
