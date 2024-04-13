@@ -46,7 +46,7 @@
     "helmet": "^6.2.0",
     "mysql2": "^3.9.4",
     "reflect-metadata": "^0.1.14",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.0",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.20"
   },
