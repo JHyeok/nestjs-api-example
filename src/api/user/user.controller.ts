@@ -24,6 +24,7 @@ import { UserCreateRequestDto } from './dto/user-create-request.dto';
 import { UserUpdateRequestDto } from './dto/user-update-request.dto';
 import { UserResponseDto } from './dto/user-response.dto';
 import { instanceToPlain } from 'class-transformer';
+import { UserNameResponseDto } from './dto/user-name-response.dto';
 
 @Controller('v1/users')
 @ApiTags('유저 API')
@@ -37,6 +38,14 @@ export class UserController {
     const users = await this.userService.findAll();
 
     res.status(HttpStatus.OK).json(users);
+  }
+
+  @Get('/name')
+  @ApiOperation({ summary: '유저 이름 조회 API' })
+  @ApiOkResponse({ type: UserNameResponseDto })
+  findName() {
+    const user = User.create('JaeHyeok', 'Kim');
+    return new UserNameResponseDto(user);
   }
 
   @Post()

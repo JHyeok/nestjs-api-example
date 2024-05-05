@@ -95,4 +95,15 @@ describe('UserController (e2e)', () => {
       expect(body.isActive).toBe(true);
     });
   });
+
+  describe('GET /v1/users/name', () => {
+    it('유저 이름을 응답한다', async () => {
+      const res = await request(app.getHttpServer()).get('/v1/users/name');
+
+      expect(res.status).toBe(200);
+      expect(res.type).toBe('application/json');
+      const { body } = res;
+      expect(body.name).toBe('Kim JaeHyeok');
+    });
+  });
 });
