@@ -1,7 +1,8 @@
 import { Test } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from 'src/app.module';
+import { setupApp } from '../../src/config/common';
 
 describe('HealthController (e2e)', () => {
   let app: INestApplication;
@@ -12,6 +13,8 @@ describe('HealthController (e2e)', () => {
     }).compile();
 
     app = module.createNestApplication();
+
+    setupApp(app);
     await app.init();
   });
 
@@ -19,7 +22,10 @@ describe('HealthController (e2e)', () => {
     await app.close();
   });
 
-  it('/health (GET)', () => {
-    return request(app.getHttpServer()).get('/health').expect(200).expect('OK');
+  it('GET /health', async () => {
+    const res = await request(app.getHttpServer()).get('/health');
+
+    expect(res.status).toBe(HttpStatus.OK);
+    expect(res.text).toBe('OK');
   });
 });
