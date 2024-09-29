@@ -26,7 +26,7 @@ import { UserResponseDto } from './dto/user-response.dto';
 import { instanceToPlain } from 'class-transformer';
 import { UserNameResponseDto } from './dto/user-name-response.dto';
 
-@Controller('v1/users')
+@Controller({ version: '1', path: 'users' })
 @ApiTags('유저 API')
 export class UserController {
   constructor(private readonly userService: UserService) {}

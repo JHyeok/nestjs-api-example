@@ -1,7 +1,8 @@
 import {
+  BadRequestException,
   INestApplication,
   ValidationPipe,
-  BadRequestException,
+  VersioningType,
 } from '@nestjs/common';
 
 /**
@@ -10,6 +11,10 @@ import {
  * @param {INestApplication} app
  */
 export function setupApp(app: INestApplication): void {
+  app.enableVersioning({
+    type: VersioningType.URI,
+    prefix: 'v',
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
