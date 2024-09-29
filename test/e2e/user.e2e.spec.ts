@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { UserRepository } from 'src/api/user/user.repository';
@@ -57,7 +57,7 @@ describe('UserController (e2e)', () => {
 
       const res = await request(app.getHttpServer()).get('/v1/users');
 
-      expect(res.status).toBe(200);
+      expect(res.status).toBe(HttpStatus.OK);
       expect(res.type).toBe('application/json');
       const { body } = res;
       expect(body).toStrictEqual([
@@ -87,7 +87,7 @@ describe('UserController (e2e)', () => {
         lastName: lastName,
       });
 
-      expect(res.status).toBe(201);
+      expect(res.status).toBe(HttpStatus.CREATED);
       expect(res.type).toBe('application/json');
       const { body } = res;
       expect(body.firstName).toBe(firstName);
@@ -100,7 +100,7 @@ describe('UserController (e2e)', () => {
     it('유저 이름을 응답한다', async () => {
       const res = await request(app.getHttpServer()).get('/v1/users/name');
 
-      expect(res.status).toBe(200);
+      expect(res.status).toBe(HttpStatus.OK);
       expect(res.type).toBe('application/json');
       const { body } = res;
       expect(body.name).toBe('Kim JaeHyeok');

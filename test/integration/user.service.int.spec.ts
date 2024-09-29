@@ -69,7 +69,7 @@ describe('UserService (Integration)', () => {
       };
 
       await expect(result).rejects.toThrowError(
-        new NotFoundException(UserMessage.NOT_FOUND_USER),
+        new NotFoundException(UserMessage.USER_NOT_FOUND),
       );
     });
 
@@ -94,7 +94,7 @@ describe('UserService (Integration)', () => {
       };
 
       await expect(result).rejects.toThrowError(
-        new NotFoundException(UserMessage.NOT_FOUND_USER),
+        new NotFoundException(UserMessage.USER_NOT_FOUND),
       );
     });
 

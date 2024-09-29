@@ -91,7 +91,7 @@ export class UserService {
     const user = await this.userRepository.findOneByUserId(userId);
 
     if (isEmpty(user) === true) {
-      throw new NotFoundException(UserMessage.NOT_FOUND_USER);
+      throw new NotFoundException(UserMessage.USER_NOT_FOUND);
     }
 
     return user;
