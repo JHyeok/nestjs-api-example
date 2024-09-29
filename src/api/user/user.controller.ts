@@ -37,14 +37,16 @@ export class UserController {
   async findAll(@Res() res: Response) {
     const users = await this.userService.findAll();
 
-    res.status(HttpStatus.OK).json(users);
+    return res.status(HttpStatus.OK).json(users);
   }
 
   @Get('/name')
   @ApiOperation({ summary: '유저 이름 조회 API' })
   @ApiOkResponse({ type: UserNameResponseDto })
-  findName() {
+  findName(): UserNameResponseDto {
     const user = User.create('JaeHyeok', 'Kim');
+
+    // return UserNameResponseDto.of(user);
     return new UserNameResponseDto(user);
   }
 
@@ -54,7 +56,7 @@ export class UserController {
   async create(@Body() requestDto: UserCreateRequestDto, @Res() res: Response) {
     const user = await this.userService.create(requestDto);
 
-    res.status(HttpStatus.CREATED).json(user);
+    return res.status(HttpStatus.CREATED).json(user);
   }
 
   @Get(':id')
@@ -69,7 +71,7 @@ export class UserController {
   ) {
     const responseDto = await this.userService.findById(id);
 
-    res.status(HttpStatus.OK).json(instanceToPlain(responseDto));
+    return res.status(HttpStatus.OK).json(instanceToPlain(responseDto));
   }
 
   @Put(':id')
@@ -85,7 +87,7 @@ export class UserController {
   ) {
     const updatedUser = await this.userService.update(id, requestDto);
 
-    res.status(HttpStatus.OK).json(updatedUser);
+    return res.status(HttpStatus.OK).json(updatedUser);
   }
 
   @Delete(':id')
@@ -97,6 +99,6 @@ export class UserController {
   ) {
     await this.userService.delete(id);
 
-    res.status(HttpStatus.NO_CONTENT).send();
+    return res.status(HttpStatus.NO_CONTENT).send();
   }
 }
