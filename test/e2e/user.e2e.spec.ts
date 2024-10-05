@@ -1,25 +1,10 @@
 import { Test } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
-import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { UserRepository } from 'src/api/user/user.repository';
-import { TypeOrmConfigService } from 'src/database/ormconfig.service';
 import { AppModule } from 'src/app.module';
+import { TestMySQLModule } from '../util/test-mysql.module';
 import { setupApp } from 'src/config/common';
-
-class MockTypeOrmConfigServer implements TypeOrmOptionsFactory {
-  createTypeOrmOptions(): TypeOrmModuleOptions {
-    return {
-      type: 'sqlite',
-      database: ':memory:',
-      synchronize: true,
-      dropSchema: true,
-      entities: ['src/api/**/*.entity.ts'],
-    };
-  }
-}
-
-const mockTypeOrmConfigService = new MockTypeOrmConfigServer();
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
@@ -27,11 +12,8 @@ describe('UserController (e2e)', () => {
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [AppModule],
-    })
-      .overrideProvider(TypeOrmConfigService)
-      .useValue(mockTypeOrmConfigService)
-      .compile();
+      imports: [AppModule, TestMySQLModule],
+    }).compile();
 
     app = module.createNestApplication();
     userRepository = module.get<UserRepository>(UserRepository);

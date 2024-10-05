@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { Test } from '@nestjs/testing';
 import { UserModule } from 'src/api/user/user.module';
-import { getTestMysqlModule } from '../../util/get-test-mysql.module';
+import { TestMySQLModule } from '../../util/test-mysql.module';
 import { UserRepository } from 'src/api/user/user.repository';
 import { User } from 'src/api/user/domain/user.entity';
 
@@ -11,7 +11,7 @@ describe('UserRepository', () => {
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [UserModule, getTestMysqlModule()],
+      imports: [UserModule, TestMySQLModule],
     }).compile();
 
     dataSource = module.get<DataSource>(DataSource);
