@@ -3,11 +3,12 @@ import { APP_FILTER } from '@nestjs/core';
 import { MySQLModule } from './database/mysql.module';
 import { HealthModule } from './api/health/health.module';
 import { UserModule } from './api/user/user.module';
+import { OrderModule } from './api/order/order.module';
 import { AllExceptionFilter } from './filter/all-exception.filter';
 import { NotFoundExceptionFilter } from './filter/not-found-exception.filter';
 
 @Module({
-  imports: [MySQLModule, HealthModule, UserModule],
+  imports: [MySQLModule, HealthModule, UserModule, OrderModule],
   providers: [
     {
       provide: APP_FILTER,
