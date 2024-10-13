@@ -32,7 +32,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  @ApiOperation({ summary: '모든 유저 조회 API' })
+  @ApiOperation({ summary: '모든 유저 조회' })
   @ApiOkResponse({ description: '모든 유저를 조회한다.', type: User })
   async findAll(@Res() res: Response) {
     const users = await this.userService.findAll();
@@ -41,7 +41,7 @@ export class UserController {
   }
 
   @Get('/name')
-  @ApiOperation({ summary: '유저 이름 조회 API' })
+  @ApiOperation({ summary: '유저 이름 조회' })
   @ApiOkResponse({ type: UserNameResponseDto })
   findName(): UserNameResponseDto {
     const user = User.create('JaeHyeok', 'Kim');
@@ -51,7 +51,7 @@ export class UserController {
   }
 
   @Post()
-  @ApiOperation({ summary: '유저 생성 API', description: '유저를 생성한다.' })
+  @ApiOperation({ summary: '유저 생성', description: '유저를 생성한다.' })
   @ApiCreatedResponse({ description: '유저를 생성한다.', type: User })
   async create(@Body() requestDto: UserCreateRequestDto, @Res() res: Response) {
     const user = await this.userService.create(requestDto);
@@ -60,7 +60,7 @@ export class UserController {
   }
 
   @Get(':id')
-  @ApiOperation({ summary: '유저 정보 조회 API' })
+  @ApiOperation({ summary: '유저 정보 조회' })
   @ApiOkResponse({
     description: 'Id가 일치하는 유저 정보를 조회한다.',
     type: UserResponseDto,
@@ -75,7 +75,7 @@ export class UserController {
   }
 
   @Put(':id')
-  @ApiOperation({ summary: '유저 정보 수정 API' })
+  @ApiOperation({ summary: '유저 정보 수정' })
   @ApiOkResponse({
     description: 'Id가 일치하는 유저 정보를 수정한다.',
     type: User,
@@ -91,7 +91,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: '유저 삭제 API' })
+  @ApiOperation({ summary: '유저 삭제' })
   @ApiNoContentResponse({ description: 'Id가 일치하는 유저 정보를 삭제한다.' })
   async delete(
     @Param('id', new ParseIntPipe()) id: number,
