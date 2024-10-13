@@ -9,7 +9,7 @@ export class HealthController {
   constructor(private readonly appService: HealthService) {}
 
   @Get()
-  @ApiOperation({ description: 'Health Check' })
+  @ApiOperation({ summary: 'Health Check' })
   healthCheck(@Res() res: Response) {
     const result = this.appService.sendOk();
 
