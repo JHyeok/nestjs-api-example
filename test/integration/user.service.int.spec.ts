@@ -6,8 +6,8 @@ import { UserService } from 'src/api/user/user.service';
 import { NotFoundException } from '@nestjs/common';
 import { UserMessage } from 'src/api/user/user.message';
 import { UserRepository } from 'src/api/user/user.repository';
-import { UserCreateRequestDto } from 'src/api/user/dto/user-create-request.dto';
-import { UserUpdateRequestDto } from 'src/api/user/dto/user-update-request.dto';
+import { UserCreateRequestDto } from 'src/api/user/dto/request/user-create-request.dto';
+import { UserUpdateRequestDto } from 'src/api/user/dto/request/user-update-request.dto';
 
 describe('UserService (Integration)', () => {
   let sut: UserService;

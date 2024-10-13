@@ -20,11 +20,11 @@ import {
   ApiOkResponse,
   ApiNoContentResponse,
 } from '@nestjs/swagger';
-import { UserCreateRequestDto } from './dto/user-create-request.dto';
-import { UserUpdateRequestDto } from './dto/user-update-request.dto';
-import { UserResponseDto } from './dto/user-response.dto';
 import { instanceToPlain } from 'class-transformer';
-import { UserNameResponseDto } from './dto/user-name-response.dto';
+import { UserCreateRequestDto } from './dto/request/user-create-request.dto';
+import { UserUpdateRequestDto } from './dto/request/user-update-request.dto';
+import { UserResponseDto } from './dto/response/user-response.dto';
+import { UserNameResponseDto } from './dto/response/user-name-response.dto';
 
 @Controller({ version: '1', path: 'users' })
 @ApiTags('유저 API')

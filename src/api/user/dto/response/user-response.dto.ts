@@ -1,6 +1,6 @@
-import { User } from '../domain/user.entity';
-import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
+import { User } from '../../domain/user.entity';
 
 export class UserResponseDto {
   @Exclude() private readonly _firstName: string;

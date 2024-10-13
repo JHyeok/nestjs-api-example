@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../domain/user.entity';
+import { User } from '../../domain/user.entity';
 
 export class UserCreateRequestDto {
   @IsNotEmpty({ message: '이름(firstName)은 필수값입니다.' })

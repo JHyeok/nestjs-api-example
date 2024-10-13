@@ -1,11 +1,11 @@
 import { NotFoundException, Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from './domain/user.entity';
-import { UserCreateRequestDto } from './dto/user-create-request.dto';
-import { UserUpdateRequestDto } from './dto/user-update-request.dto';
+import { UserCreateRequestDto } from './dto/request/user-create-request.dto';
+import { UserUpdateRequestDto } from './dto/request/user-update-request.dto';
 import { isEmpty } from '../../util/shared.util';
 import { UserMessage } from './user.message';
-import { UserResponseDto } from './dto/user-response.dto';
+import { UserResponseDto } from './dto/response/user-response.dto';
 import { UserName } from './domain/user-name';
 
 @Injectable()
