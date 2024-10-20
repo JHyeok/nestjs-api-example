@@ -72,9 +72,6 @@ describe('OrderService (Integration)', () => {
       await productRepository.save(
         createProduct('P0002', ProductType.GENERAL, 3000),
       );
-      await productRepository.save(
-        createProduct('P0003', ProductType.GENERAL, 5000),
-      );
       const request = OrderCreateRequestDto.of(['P0001', 'P0002']);
 
       // when
