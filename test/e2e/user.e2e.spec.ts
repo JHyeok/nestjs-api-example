@@ -16,7 +16,7 @@ describe('UserController (e2e)', () => {
     }).compile();
 
     app = module.createNestApplication();
-    userRepository = module.get<UserRepository>(UserRepository);
+    userRepository = module.get(UserRepository);
 
     setupApp(app);
     await app.init();

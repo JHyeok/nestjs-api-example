@@ -37,11 +37,9 @@ describe('OrderController (e2e)', () => {
     }).compile();
 
     app = module.createNestApplication();
-    productRepository = module.get<ProductRepository>(ProductRepository);
-    orderRepository = module.get<OrderRepository>(OrderRepository);
-    orderProductRepository = module.get<OrderProductRepository>(
-      OrderProductRepository,
-    );
+    productRepository = module.get(ProductRepository);
+    orderRepository = module.get(OrderRepository);
+    orderProductRepository = module.get(OrderProductRepository);
 
     setupApp(app);
     await app.init();

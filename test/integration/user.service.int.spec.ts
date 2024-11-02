@@ -20,9 +20,9 @@ describe('UserService (Integration)', () => {
       providers: [UserService, UserRepository],
     }).compile();
 
-    sut = module.get<UserService>(UserService);
-    dataSource = module.get<DataSource>(DataSource);
-    userRepository = module.get<UserRepository>(UserRepository);
+    sut = module.get(UserService);
+    dataSource = module.get(DataSource);
+    userRepository = module.get(UserRepository);
   });
 
   beforeEach(async () => {

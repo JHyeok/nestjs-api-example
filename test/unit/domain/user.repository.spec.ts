@@ -14,8 +14,8 @@ describe('UserRepository', () => {
       imports: [UserModule, TestMySQLModule],
     }).compile();
 
-    dataSource = module.get<DataSource>(DataSource);
-    userRepository = module.get<UserRepository>(UserRepository);
+    dataSource = module.get(DataSource);
+    userRepository = module.get(UserRepository);
   });
 
   beforeEach(async () => {

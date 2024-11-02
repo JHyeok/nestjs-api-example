@@ -43,13 +43,11 @@ describe('OrderService (Integration)', () => {
       ],
     }).compile();
 
-    sut = module.get<OrderService>(OrderService);
-    dataSource = module.get<DataSource>(DataSource);
-    productRepository = module.get<ProductRepository>(ProductRepository);
-    orderRepository = module.get<OrderRepository>(OrderRepository);
-    orderProductRepository = module.get<OrderProductRepository>(
-      OrderProductRepository,
-    );
+    sut = module.get(OrderService);
+    dataSource = module.get(DataSource);
+    productRepository = module.get(ProductRepository);
+    orderRepository = module.get(OrderRepository);
+    orderProductRepository = module.get(OrderProductRepository);
   });
 
   afterEach(async () => {

@@ -9,7 +9,7 @@ describe('HealthService', () => {
       providers: [HealthService],
     }).compile();
 
-    healthService = module.get<HealthService>(HealthService);
+    healthService = module.get(HealthService);
   });
 
   describe('Health Check', () => {

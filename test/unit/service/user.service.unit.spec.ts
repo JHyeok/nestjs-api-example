@@ -17,8 +17,8 @@ describe('UserService (Unit)', () => {
       providers: [UserService, UserRepository],
     }).compile();
 
-    userService = module.get<UserService>(UserService);
-    userRepository = module.get<UserRepository>(UserRepository);
+    userService = module.get(UserService);
+    userRepository = module.get(UserRepository);
   });
 
   describe('create', () => {
