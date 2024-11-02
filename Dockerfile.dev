@@ -3,7 +3,7 @@ FROM node:20.12.2-alpine AS builder
 WORKDIR /usr/src/app
 COPY . .
 
-RUN yarn install && yarn build
+RUN npm install && npm run build
 
 FROM node:20.12.2-alpine
 

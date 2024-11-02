@@ -33,7 +33,7 @@ services:
       - -c
       - |
         /wait-for-it.sh db:3306 -t 15
-        yarn start:dev
+        npm run start:dev
     env_file:
       - .env
     networks:

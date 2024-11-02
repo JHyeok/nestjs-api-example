@@ -12,7 +12,7 @@ git clone git@github.com:JHyeok/nestjs-api-example.git nestjs-project
 cd nestjs-project
 
 # 3. 의존성 설치
-yarn install
+npm install
 ```
 
 설치가 끝났으면 `src/.env.example`을 복사해서 `.env`를 만듭니다.
@@ -54,14 +54,14 @@ $ docker-compose -f docker-compose.dev.yml down -v
 
 ```bash
 # 운영 환경으로 실행
-$ yarn start:prod
+$ npm run start:prod
 
 # 개발 환경으로 실행
-$ yarn start:dev
+$ npm run start:dev
 ```
 
 ## 테스트
 
 ```bash
-$ yarn test
+$ npm run test
 ```

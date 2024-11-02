@@ -2,13 +2,14 @@ FROM node:20.12.2-alpine AS builder
 
 WORKDIR /usr/src/app
 
-COPY package.json yarn.lock ./
-RUN yarn install --immutable --immutable-cache --check-cache
+COPY package*.json ./
+RUN npm install
 
 COPY . .
-RUN yarn build
+RUN npm run build
 
-RUN yarn install --production
+# devDependencies 제거
+RUN npm prune --production
 
 FROM node:20.12.2-alpine AS deploy
 
