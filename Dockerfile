@@ -1,4 +1,4 @@
-FROM node:20.12.2-alpine AS builder
+FROM node:22.11.0-alpine AS builder
 
 WORKDIR /usr/src/app
 
@@ -11,7 +11,7 @@ RUN npm run build
 # devDependencies 제거
 RUN npm prune --production
 
-FROM node:20.12.2-alpine AS deploy
+FROM node:22.11.0-alpine AS deploy
 
 ENV NODE_ENV production
 
