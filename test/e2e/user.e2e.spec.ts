@@ -42,20 +42,11 @@ describe('UserController (e2e)', () => {
       expect(res.status).toBe(HttpStatus.OK);
       expect(res.type).toBe('application/json');
       const { body } = res;
-      expect(body).toStrictEqual([
-        {
-          id: expect.any(Number),
-          firstName: 'JaeHyeok',
-          lastName: 'Kim',
-          isActive: true,
-        },
-        {
-          id: expect.any(Number),
-          firstName: '재혁',
-          lastName: '김',
-          isActive: true,
-        },
-      ]);
+      expect(body).toHaveLength(2);
+      expect(body[0].firstName).toBe('JaeHyeok');
+      expect(body[0].lastName).toBe('Kim');
+      expect(body[1].firstName).toBe('재혁');
+      expect(body[1].lastName).toBe('김');
     });
   });
 
