@@ -11,20 +11,6 @@ import { ProductSaleStatus } from '../../src/api/order/domain/product-sale-statu
 import { OrderRepository } from '../../src/api/order/repository/order.repository';
 import { OrderProductRepository } from '../../src/api/order/repository/order-product.repository';
 
-function createProduct(
-  productNumber: string,
-  type: ProductType,
-  price: number,
-) {
-  return Product.of(
-    productNumber,
-    type,
-    ProductSaleStatus.ON,
-    '상품 이름',
-    price,
-  );
-}
-
 describe('OrderController (e2e)', () => {
   let app: INestApplication;
   let productRepository: ProductRepository;
@@ -80,5 +66,19 @@ describe('OrderController (e2e)', () => {
         { productNumber: 'P0002', price: 3000 },
       ]);
     });
+
+    function createProduct(
+      productNumber: string,
+      type: ProductType,
+      price: number,
+    ) {
+      return Product.of(
+        productNumber,
+        type,
+        ProductSaleStatus.ON,
+        '상품 이름',
+        price,
+      );
+    }
   });
 });

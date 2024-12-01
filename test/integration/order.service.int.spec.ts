@@ -11,20 +11,6 @@ import { ProductType } from '../../src/api/order/domain/product-type';
 import { ProductSaleStatus } from '../../src/api/order/domain/product-sale-status';
 import { OrderProductRepository } from '../../src/api/order/repository/order-product.repository';
 
-function createProduct(
-  productNumber: string,
-  type: ProductType,
-  price: number,
-) {
-  return Product.of(
-    productNumber,
-    type,
-    ProductSaleStatus.ON,
-    '상품 이름',
-    price,
-  );
-}
-
 describe('OrderService (Integration)', () => {
   let sut: OrderService;
   let dataSource: DataSource;
@@ -89,5 +75,19 @@ describe('OrderService (Integration)', () => {
         ]),
       );
     });
+
+    function createProduct(
+      productNumber: string,
+      type: ProductType,
+      price: number,
+    ) {
+      return Product.of(
+        productNumber,
+        type,
+        ProductSaleStatus.ON,
+        '상품 이름',
+        price,
+      );
+    }
   });
 });
