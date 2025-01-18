@@ -1,6 +1,6 @@
 import { Repository, In } from 'typeorm';
 import { Product } from '../domain/product.entity';
-import { CustomRepository } from '../../../decorator/typeorm-ex.decorator';
+import { CustomRepository } from '../../../common/decorator/typeorm-ex.decorator';
 
 @CustomRepository(Product)
 export class ProductRepository extends Repository<Product> {
