@@ -32,22 +32,22 @@ Dockerfile.dev는 로컬에서 개발 환경으로 사용하는 목적이고 Doc
 
 ```bash
 # 테스트 데이터베이스 실행
-$ docker-compose up -d
+$ docker compose up -d
 
 # 실행
-$ docker-compose -f docker-compose.dev.yml up -d
+$ docker compose -f docker-compose.dev.yml up -d
 
 # 빌드
-$ docker-compose -f docker-compose.dev.yml build
+$ docker compose -f docker-compose.dev.yml build
 
 # 재시작
-$ docker-compose -f docker-compose.dev.yml restart
+$ docker compose -f docker-compose.dev.yml restart
 
 # 중지
-$ docker-compose -f docker-compose.dev.yml down
+$ docker compose -f docker-compose.dev.yml down
 
 # 중지 (도커 볼륨 삭제)
-$ docker-compose -f docker-compose.dev.yml down -v
+$ docker compose -f docker-compose.dev.yml down -v
 ```
 
 ## 실행
