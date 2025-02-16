@@ -3,16 +3,15 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
   Relation,
 } from 'typeorm';
 import { ProductType } from './product-type';
 import { ProductSaleStatus } from './product-sale-status';
 import { OrderProduct } from './order-product.entity';
+import { BaseEntity } from '../../../common/entity/base.entity';
 
 @Entity()
-export class Product {
+export class Product extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -42,12 +41,6 @@ export class Product {
 
   @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.product)
   orderProducts: Relation<OrderProduct[]>;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 
   static of(
     productNumber: string,

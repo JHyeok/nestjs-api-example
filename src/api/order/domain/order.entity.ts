@@ -5,14 +5,14 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   Relation,
-  UpdateDateColumn,
 } from 'typeorm';
 import { OrderStatus } from './order-status';
 import { OrderProduct } from './order-product.entity';
 import { Product } from './product.entity';
+import { BaseEntity } from '../../../common/entity/base.entity';
 
 @Entity()
-export class Order {
+export class Order extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -37,12 +37,6 @@ export class Order {
     cascade: true,
   })
   orderProducts: Relation<OrderProduct[]>;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 
   static create(products: Product[], registeredDateTime: Date): Order {
     const order = new Order();
