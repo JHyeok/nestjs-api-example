@@ -3,13 +3,13 @@ import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from 'src/app.module';
 import { TestMySQLModule } from '../util/test-mysql.module';
-import { setupApp } from '../../src/config/common';
-import { ProductRepository } from '../../src/api/order/repository/product.repository';
-import { ProductType } from '../../src/api/order/domain/product-type';
-import { Product } from '../../src/api/order/domain/product.entity';
-import { ProductSaleStatus } from '../../src/api/order/domain/product-sale-status';
-import { OrderRepository } from '../../src/api/order/repository/order.repository';
-import { OrderProductRepository } from '../../src/api/order/repository/order-product.repository';
+import { setupApp } from 'src/config/common';
+import { ProductRepository } from 'src/api/order/repository/product.repository';
+import { ProductType } from 'src/api/order/domain/product-type';
+import { Product } from 'src/api/order/domain/product.entity';
+import { ProductSaleStatus } from 'src/api/order/domain/product-sale-status';
+import { OrderRepository } from 'src/api/order/repository/order.repository';
+import { OrderProductRepository } from 'src/api/order/repository/order-product.repository';
 
 describe('OrderController (e2e)', () => {
   let app: INestApplication;

@@ -1,15 +1,15 @@
 import { DataSource } from 'typeorm';
 import { Test } from '@nestjs/testing';
-import { OrderModule } from '../../src/api/order/order.module';
+import { OrderModule } from 'src/api/order/order.module';
 import { TestMySQLModule } from '../util/test-mysql.module';
-import { OrderService } from '../../src/api/order/order.service';
-import { ProductRepository } from '../../src/api/order/repository/product.repository';
-import { Product } from '../../src/api/order/domain/product.entity';
-import { OrderCreateRequestDto } from '../../src/api/order/dto/request/order-create-request.dto';
-import { OrderRepository } from '../../src/api/order/repository/order.repository';
-import { ProductType } from '../../src/api/order/domain/product-type';
-import { ProductSaleStatus } from '../../src/api/order/domain/product-sale-status';
-import { OrderProductRepository } from '../../src/api/order/repository/order-product.repository';
+import { OrderService } from 'src/api/order/order.service';
+import { ProductRepository } from 'src/api/order/repository/product.repository';
+import { Product } from 'src/api/order/domain/product.entity';
+import { OrderCreateRequestDto } from 'src/api/order/dto/request/order-create-request.dto';
+import { OrderRepository } from 'src/api/order/repository/order.repository';
+import { ProductType } from 'src/api/order/domain/product-type';
+import { ProductSaleStatus } from 'src/api/order/domain/product-sale-status';
+import { OrderProductRepository } from 'src/api/order/repository/order-product.repository';
 
 describe('OrderService (Integration)', () => {
   let sut: OrderService;
