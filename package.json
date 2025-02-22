@@ -46,6 +46,7 @@
     "class-validator": "^0.14.1",
     "helmet": "^8.0.0",
     "mysql2": "^3.11.5",
+    "pprof": "^4.0.0",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.1",
     "rxjs": "^7.8.1",

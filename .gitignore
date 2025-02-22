@@ -35,3 +35,7 @@ lerna-debug.log*
 
 # environment
 .env
+
+# Profiling
+cpu-profile-*.pb.gz
+heap-profile-*.pb.gz
