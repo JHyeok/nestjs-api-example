@@ -4,7 +4,7 @@ import request from 'supertest';
 import { UserRepository } from 'src/api/user/user.repository';
 import { AppModule } from 'src/app.module';
 import { TestMySQLModule } from '../util/test-mysql.module';
-import { setupApp } from 'src/config/common';
+import { setupApp } from 'src/common/config';
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
