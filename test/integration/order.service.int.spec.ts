@@ -4,12 +4,11 @@ import { OrderModule } from 'src/api/order/order.module';
 import { TestMySQLModule } from '../test-mysql.module';
 import { OrderService } from 'src/api/order/order.service';
 import { ProductRepository } from 'src/api/order/repository/product.repository';
-import { Product } from 'src/api/order/domain/product.entity';
 import { OrderCreateRequestDto } from 'src/api/order/dto/request/order-create-request.dto';
 import { OrderRepository } from 'src/api/order/repository/order.repository';
 import { ProductType } from 'src/api/order/domain/product-type';
-import { ProductSaleStatus } from 'src/api/order/domain/product-sale-status';
 import { OrderProductRepository } from 'src/api/order/repository/order-product.repository';
+import { ProductFixture } from '../fixture/product.fixture';
 
 describe('OrderService (Integration)', () => {
   let sut: OrderService;
@@ -36,7 +35,7 @@ describe('OrderService (Integration)', () => {
     orderProductRepository = module.get(OrderProductRepository);
   });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await orderProductRepository.clear();
     await orderRepository.clear();
     await productRepository.clear();
@@ -51,10 +50,10 @@ describe('OrderService (Integration)', () => {
       // given
       const now = new Date();
       await productRepository.save(
-        createProduct('P0001', ProductType.GENERAL, 1000),
+        ProductFixture.create('P0001', ProductType.GENERAL, 1000),
       );
       await productRepository.save(
-        createProduct('P0002', ProductType.GENERAL, 3000),
+        ProductFixture.create('P0002', ProductType.GENERAL, 3000),
       );
       const request = OrderCreateRequestDto.of(['P0001', 'P0002']);
 
@@ -75,19 +74,5 @@ describe('OrderService (Integration)', () => {
         ]),
       );
     });
-
-    function createProduct(
-      productNumber: string,
-      type: ProductType,
-      price: number,
-    ) {
-      return Product.of(
-        productNumber,
-        type,
-        ProductSaleStatus.ON,
-        '상품 이름',
-        price,
-      );
-    }
   });
 });

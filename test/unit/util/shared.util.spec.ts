@@ -1,4 +1,4 @@
-import { isEmpty } from '../../../src/util/shared.util';
+import { isEmpty } from 'src/util/shared.util';
 
 describe('SharedUtil', () => {
   describe('isEmpty', () => {

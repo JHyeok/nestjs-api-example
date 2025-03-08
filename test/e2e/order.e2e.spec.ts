@@ -6,10 +6,9 @@ import { TestMySQLModule } from '../test-mysql.module';
 import { setupApp } from 'src/common/config';
 import { ProductRepository } from 'src/api/order/repository/product.repository';
 import { ProductType } from 'src/api/order/domain/product-type';
-import { Product } from 'src/api/order/domain/product.entity';
-import { ProductSaleStatus } from 'src/api/order/domain/product-sale-status';
 import { OrderRepository } from 'src/api/order/repository/order.repository';
 import { OrderProductRepository } from 'src/api/order/repository/order-product.repository';
+import { ProductFixture } from '../fixture/product.fixture';
 
 describe('OrderController (e2e)', () => {
   let app: INestApplication;
@@ -31,7 +30,7 @@ describe('OrderController (e2e)', () => {
     await app.init();
   });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await orderProductRepository.clear();
     await orderRepository.clear();
     await productRepository.clear();
@@ -44,10 +43,10 @@ describe('OrderController (e2e)', () => {
   describe('POST /v1/orders', () => {
     it('주문을 등록하고, 주문 정보를 응답한다', async () => {
       await productRepository.save(
-        createProduct('P0001', ProductType.GENERAL, 1000),
+        ProductFixture.create('P0001', ProductType.GENERAL, 1000),
       );
       await productRepository.save(
-        createProduct('P0002', ProductType.GENERAL, 3000),
+        ProductFixture.create('P0002', ProductType.GENERAL, 3000),
       );
 
       const res = await request(app.getHttpServer())
@@ -66,19 +65,5 @@ describe('OrderController (e2e)', () => {
         { productNumber: 'P0002', price: 3000 },
       ]);
     });
-
-    function createProduct(
-      productNumber: string,
-      type: ProductType,
-      price: number,
-    ) {
-      return Product.of(
-        productNumber,
-        type,
-        ProductSaleStatus.ON,
-        '상품 이름',
-        price,
-      );
-    }
   });
 });
