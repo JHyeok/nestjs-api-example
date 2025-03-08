@@ -6,10 +6,8 @@ import { CustomRepository } from '../../../common/decorator/typeorm-ex.decorator
 export class ProductRepository extends Repository<Product> {
   /**
    * 상품 번호 목록에 해당하는 모든 상품을 조회한다.
-   * @async
    *
    * @param {string[]} productNumbers - 상품 번호 목록
-   *
    * @returns {Promise<Product[]>}
    */
   async findAllByProductNumberIn(productNumbers: string[]): Promise<Product[]> {
