@@ -3,7 +3,7 @@ import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { UserRepository } from 'src/api/user/user.repository';
 import { AppModule } from 'src/app.module';
-import { TestMySQLModule } from '../util/test-mysql.module';
+import { TestMySQLModule } from '../test-mysql.module';
 import { setupApp } from 'src/common/config';
 
 describe('UserController (e2e)', () => {

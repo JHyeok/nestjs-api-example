@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { Test } from '@nestjs/testing';
 import { OrderModule } from 'src/api/order/order.module';
-import { TestMySQLModule } from '../util/test-mysql.module';
+import { TestMySQLModule } from '../test-mysql.module';
 import { OrderService } from 'src/api/order/order.service';
 import { ProductRepository } from 'src/api/order/repository/product.repository';
 import { Product } from 'src/api/order/domain/product.entity';

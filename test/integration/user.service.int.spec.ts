@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { Test } from '@nestjs/testing';
 import { UserModule } from 'src/api/user/user.module';
-import { TestMySQLModule } from '../util/test-mysql.module';
+import { TestMySQLModule } from '../test-mysql.module';
 import { UserService } from 'src/api/user/user.service';
 import { NotFoundException } from '@nestjs/common';
 import { UserMessage } from 'src/api/user/user.message';
