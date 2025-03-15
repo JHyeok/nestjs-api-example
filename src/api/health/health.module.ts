@@ -6,7 +6,7 @@ import { HealthService } from './health.service';
 @Module({
   imports: [
     TerminusModule.forRoot({
-      gracefulShutdownTimeoutMs: 1000,
+      gracefulShutdownTimeoutMs: 1_000,
     }),
   ],
   controllers: [HealthController],

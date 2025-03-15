@@ -20,7 +20,7 @@ export class DebugService {
   async startCpuProfiling(seconds?: string): Promise<string> {
     const durationMillis = this.parseSecondsToMillis(seconds);
     console.log(
-      `Starting CPU profiling for ${durationMillis / 1000} seconds...`,
+      `Starting CPU profiling for ${durationMillis / 1_000} seconds...`,
     );
 
     try {
@@ -50,9 +50,9 @@ export class DebugService {
       console.warn(
         `Invalid seconds value: "${seconds}", using default: ${this.DURATION_SECONDS}s`,
       );
-      return this.DURATION_SECONDS * 1000;
+      return this.DURATION_SECONDS * 1_000;
     }
-    return parsedSeconds * 1000;
+    return parsedSeconds * 1_000;
   }
 
   /**

@@ -22,7 +22,7 @@ const config: Config = {
 
   // 실행 관련 설정
   verbose: true,
-  testTimeout: 30000,
+  testTimeout: 30_000,
   setupFilesAfterEnv: ['<rootDir>/test/jest-setup.ts'],
 };
 

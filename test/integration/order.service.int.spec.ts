@@ -50,10 +50,10 @@ describe('OrderService (Integration)', () => {
       // given
       const now = new Date();
       await productRepository.save(
-        ProductFixture.create('P0001', ProductType.GENERAL, 1000),
+        ProductFixture.create('P0001', ProductType.GENERAL, 1_000),
       );
       await productRepository.save(
-        ProductFixture.create('P0002', ProductType.GENERAL, 3000),
+        ProductFixture.create('P0002', ProductType.GENERAL, 3_000),
       );
       const request = OrderCreateRequestDto.of(['P0001', 'P0002']);
 
@@ -63,14 +63,14 @@ describe('OrderService (Integration)', () => {
       // then
       expect(orderResponse.id).not.toBeNull();
       expect(orderResponse).toMatchObject({
-        totalPrice: 4000,
+        totalPrice: 4_000,
         registeredDateTime: now,
       });
       expect(orderResponse.products).toHaveLength(2);
       expect(orderResponse.products).toEqual(
         expect.arrayContaining([
-          expect.objectContaining({ productNumber: 'P0001', price: 1000 }),
-          expect.objectContaining({ productNumber: 'P0002', price: 3000 }),
+          expect.objectContaining({ productNumber: 'P0001', price: 1_000 }),
+          expect.objectContaining({ productNumber: 'P0002', price: 3_000 }),
         ]),
       );
     });

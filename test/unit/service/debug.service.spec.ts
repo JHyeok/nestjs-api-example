@@ -37,7 +37,7 @@ describe('DebugService', () => {
       await debugService.startCpuProfiling();
 
       expect(pprof.time.profile).toHaveBeenCalledWith({
-        durationMillis: 30000,
+        durationMillis: 30_000,
       });
     });
 
@@ -51,7 +51,7 @@ describe('DebugService', () => {
       await debugService.startCpuProfiling('10');
 
       expect(pprof.time.profile).toHaveBeenCalledWith({
-        durationMillis: 10000,
+        durationMillis: 10_000,
       });
     });
 
@@ -65,7 +65,7 @@ describe('DebugService', () => {
       await debugService.startCpuProfiling('abc');
 
       expect(pprof.time.profile).toHaveBeenCalledWith({
-        durationMillis: 30000,
+        durationMillis: 30_000,
       });
     });
 
@@ -79,7 +79,7 @@ describe('DebugService', () => {
       const result = await debugService.startCpuProfiling('10');
 
       expect(pprof.time.profile).toHaveBeenCalledWith({
-        durationMillis: 10000,
+        durationMillis: 10_000,
       });
       expect(pprof.encode).toHaveBeenCalledWith(mockProfile);
       expect(writeFileSync).toHaveBeenCalled();

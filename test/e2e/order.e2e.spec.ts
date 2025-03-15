@@ -43,10 +43,10 @@ describe('OrderController (e2e)', () => {
   describe('POST /v1/orders', () => {
     it('주문을 등록하고, 주문 정보를 응답한다', async () => {
       await productRepository.save(
-        ProductFixture.create('P0001', ProductType.GENERAL, 1000),
+        ProductFixture.create('P0001', ProductType.GENERAL, 1_000),
       );
       await productRepository.save(
-        ProductFixture.create('P0002', ProductType.GENERAL, 3000),
+        ProductFixture.create('P0002', ProductType.GENERAL, 3_000),
       );
 
       const res = await request(app.getHttpServer())
@@ -58,11 +58,11 @@ describe('OrderController (e2e)', () => {
       expect(res.status).toBe(HttpStatus.CREATED);
       const { body } = res;
       expect(body.id).not.toBeNull();
-      expect(body.totalPrice).toEqual(4000);
+      expect(body.totalPrice).toEqual(4_000);
       expect(body.registeredDateTime).not.toBeNull();
       expect(body.products).toEqual([
-        { productNumber: 'P0001', price: 1000 },
-        { productNumber: 'P0002', price: 3000 },
+        { productNumber: 'P0001', price: 1_000 },
+        { productNumber: 'P0002', price: 3_000 },
       ]);
     });
   });
