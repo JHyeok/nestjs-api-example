@@ -1,24 +1,35 @@
 import { Test } from '@nestjs/testing';
-import { User } from 'src/api/user/domain/user.entity';
 import { UserService } from 'src/api/user/user.service';
+import { UserRepository } from 'src/api/user/repository/user.repository';
+import { DataSource, DeleteResult } from 'typeorm';
+import { User } from 'src/api/user/domain/user.entity';
 import { UserCreateRequestDto } from 'src/api/user/dto/request/user-create-request.dto';
 import { UserUpdateRequestDto } from 'src/api/user/dto/request/user-update-request.dto';
 import { NotFoundException } from '@nestjs/common';
 import { UserMessage } from 'src/api/user/user.message';
-import { UserRepository } from 'src/api/user/user.repository';
-import { DeleteResult } from 'typeorm';
 
 describe('UserService (Unit)', () => {
   let userService: UserService;
   let userRepository: UserRepository;
+  const dataSource = {
+    createEntityManager: jest.fn(),
+  };
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module = await Test.createTestingModule({
-      providers: [UserService, UserRepository],
+      providers: [
+        UserService,
+        UserRepository,
+        { provide: DataSource, useValue: dataSource },
+      ],
     }).compile();
 
     userService = module.get(UserService);
     userRepository = module.get(UserRepository);
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   describe('create', () => {

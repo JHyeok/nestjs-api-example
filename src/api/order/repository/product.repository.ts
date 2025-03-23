@@ -1,9 +1,13 @@
-import { Repository, In } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { Repository, DataSource, In } from 'typeorm';
 import { Product } from '../domain/product.entity';
-import { CustomRepository } from '../../../common/decorator/typeorm-ex.decorator';
 
-@CustomRepository(Product)
+@Injectable()
 export class ProductRepository extends Repository<Product> {
+  constructor(private readonly dataSource: DataSource) {
+    super(Product, dataSource.createEntityManager());
+  }
+
   /**
    * 상품 번호 목록에 해당하는 모든 상품을 조회한다.
    *

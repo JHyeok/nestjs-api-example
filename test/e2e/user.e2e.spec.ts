@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
-import { UserRepository } from 'src/api/user/user.repository';
+import { UserRepository } from 'src/api/user/repository/user.repository';
 import { AppModule } from 'src/app.module';
 import { TestMySQLModule } from '../test-mysql.module';
 import { setupApp } from 'src/common/config';

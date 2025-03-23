@@ -1,11 +1,15 @@
-import { Repository } from 'typeorm';
-import { User } from './domain/user.entity';
-import { CustomRepository } from '../../common/decorator/typeorm-ex.decorator';
+import { Injectable } from '@nestjs/common';
+import { Repository, DataSource } from 'typeorm';
+import { User } from '../domain/user.entity';
 import { plainToInstance } from 'class-transformer';
-import { UserName } from './domain/user-name';
+import { UserName } from '../domain/user-name';
 
-@CustomRepository(User)
+@Injectable()
 export class UserRepository extends Repository<User> {
+  constructor(private readonly dataSource: DataSource) {
+    super(User, dataSource.createEntityManager());
+  }
+
   /**
    * 유저 Id에 해당하는 유저 정보를 조회한다.
    *
