@@ -18,12 +18,16 @@ jest.mock('pprof', () => ({
 describe('DebugService', () => {
   let debugService: DebugService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module = await Test.createTestingModule({
       providers: [DebugService],
     }).compile();
 
     debugService = module.get(DebugService);
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   describe('startCpuProfiling', () => {

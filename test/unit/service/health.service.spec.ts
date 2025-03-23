@@ -4,7 +4,7 @@ import { HealthService } from 'src/api/health/health.service';
 describe('HealthService', () => {
   let healthService: HealthService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module = await Test.createTestingModule({
       providers: [HealthService],
     }).compile();
