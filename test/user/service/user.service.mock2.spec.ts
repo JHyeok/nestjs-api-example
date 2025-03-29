@@ -8,7 +8,7 @@ import { UserUpdateRequestDto } from 'src/api/user/dto/request/user-update-reque
 import { NotFoundException } from '@nestjs/common';
 import { UserMessage } from 'src/api/user/user.message';
 
-describe('UserService (Unit)', () => {
+describe('UserService (jest.fn)', () => {
   let userService: UserService;
   let userRepository: UserRepository;
   const dataSource = {

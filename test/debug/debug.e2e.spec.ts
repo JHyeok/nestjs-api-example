@@ -8,12 +8,12 @@ import { setupApp } from 'src/common/config';
 
 describe('DebugController (e2e)', () => {
   let app: INestApplication;
-  const mockDebugService: MockProxy<DebugService> = mock<DebugService>();
+  const debugService: MockProxy<DebugService> = mock<DebugService>();
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
       controllers: [DebugController],
-      providers: [{ provide: DebugService, useValue: mockDebugService }],
+      providers: [{ provide: DebugService, useValue: debugService }],
     }).compile();
 
     app = module.createNestApplication();
@@ -22,7 +22,7 @@ describe('DebugController (e2e)', () => {
   });
 
   beforeEach(() => {
-    mockReset(mockDebugService);
+    mockReset(debugService);
   });
 
   afterAll(async () => {
@@ -34,7 +34,7 @@ describe('DebugController (e2e)', () => {
       // given
       const fileName = 'cpu-profile-1740188574460.pb.gz';
       const expectedResponse = `CPU profiling completed. File saved: ${fileName}`;
-      mockDebugService.startCpuProfiling.mockResolvedValue(expectedResponse);
+      debugService.startCpuProfiling.mockResolvedValue(expectedResponse);
 
       // when
       const res = await request(app.getHttpServer()).get(

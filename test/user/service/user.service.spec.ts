@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { Test } from '@nestjs/testing';
 import { UserModule } from 'src/api/user/user.module';
-import { TestMySQLModule } from '../test-mysql.module';
+import { TestMySQLModule } from '../../test-mysql.module';
 import { UserService } from 'src/api/user/user.service';
 import { NotFoundException } from '@nestjs/common';
 import { UserMessage } from 'src/api/user/user.message';
@@ -9,7 +9,7 @@ import { UserRepository } from 'src/api/user/repository/user.repository';
 import { UserCreateRequestDto } from 'src/api/user/dto/request/user-create-request.dto';
 import { UserUpdateRequestDto } from 'src/api/user/dto/request/user-update-request.dto';
 
-describe('UserService (Integration)', () => {
+describe('UserService', () => {
   let sut: UserService;
   let dataSource: DataSource;
   let userRepository: UserRepository;

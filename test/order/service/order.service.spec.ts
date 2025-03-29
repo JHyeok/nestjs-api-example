@@ -1,14 +1,14 @@
 import { DataSource } from 'typeorm';
 import { Test } from '@nestjs/testing';
 import { OrderModule } from 'src/api/order/order.module';
-import { TestMySQLModule } from '../test-mysql.module';
+import { TestMySQLModule } from '../../test-mysql.module';
 import { OrderService } from 'src/api/order/order.service';
 import { ProductRepository } from 'src/api/order/repository/product.repository';
 import { OrderCreateRequestDto } from 'src/api/order/dto/request/order-create-request.dto';
 import { OrderRepository } from 'src/api/order/repository/order.repository';
 import { ProductType } from 'src/api/order/domain/product-type';
 import { OrderProductRepository } from 'src/api/order/repository/order-product.repository';
-import { ProductFixture } from '../fixture/product.fixture';
+import { ProductFixture } from '../../fixture/product.fixture';
 
 describe('OrderService (Integration)', () => {
   let sut: OrderService;
@@ -46,7 +46,7 @@ describe('OrderService (Integration)', () => {
   });
 
   describe('create', () => {
-    it('주문번호 리스트를 받아 주문을 생성한다.', async () => {
+    it('주문번호 리스트를 받아 주문을 생성한다', async () => {
       // given
       const now = new Date();
       await productRepository.save(
