@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as pprof from 'pprof';
 import { perftools } from 'pprof/proto/profile';
 import * as path from 'path';
@@ -6,9 +6,7 @@ import { writeFileSync } from 'fs';
 
 @Injectable()
 export class DebugService {
-  /**
-   * 기본 프로파일링 지속 시간(초)
-   */
+  private readonly logger = new Logger(DebugService.name);
   private readonly DURATION_SECONDS: number = 30;
 
   /**
@@ -19,7 +17,7 @@ export class DebugService {
    */
   async startCpuProfiling(seconds?: string): Promise<string> {
     const durationMillis = this.parseSecondsToMillis(seconds);
-    console.log(
+    this.logger.log(
       `Starting CPU profiling for ${durationMillis / 1_000} seconds...`,
     );
 
@@ -29,10 +27,10 @@ export class DebugService {
       const fileName = `cpu-profile-${Date.now()}.pb.gz`;
       const filePath = await this.saveProfileToFile(profile, fileName);
 
-      console.log(`CPU profiling completed. File saved: ${filePath}`);
+      this.logger.log(`CPU profiling completed. File saved: ${filePath}`);
       return `CPU profiling completed. File saved: ${filePath}`;
     } catch (error) {
-      console.error('CPU profiling failed:', error);
+      this.logger.error('CPU profiling failed:', error);
       throw new Error('CPU profiling failed.');
     }
   }
@@ -47,7 +45,7 @@ export class DebugService {
   private parseSecondsToMillis(seconds?: string): number {
     const parsedSeconds = seconds ? Number(seconds) : this.DURATION_SECONDS;
     if (isNaN(parsedSeconds) || parsedSeconds <= 0) {
-      console.warn(
+      this.logger.warn(
         `Invalid seconds value: "${seconds}", using default: ${this.DURATION_SECONDS}s`,
       );
       return this.DURATION_SECONDS * 1_000;
