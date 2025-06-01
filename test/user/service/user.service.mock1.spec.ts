@@ -66,7 +66,7 @@ describe('UserService (jest-mock-extneded)', () => {
         await userService.findById(userId);
       };
 
-      await expect(result).rejects.toThrowError(
+      await expect(result).rejects.toThrow(
         new NotFoundException(UserMessage.USER_NOT_FOUND),
       );
     });
@@ -93,7 +93,7 @@ describe('UserService (jest-mock-extneded)', () => {
         await userService.update(userId, requestDto);
       };
 
-      await expect(result).rejects.toThrowError(
+      await expect(result).rejects.toThrow(
         new NotFoundException(UserMessage.USER_NOT_FOUND),
       );
     });

@@ -68,7 +68,7 @@ describe('UserService', () => {
         await sut.findById(userId);
       };
 
-      await expect(result).rejects.toThrowError(
+      await expect(result).rejects.toThrow(
         new NotFoundException(UserMessage.USER_NOT_FOUND),
       );
     });
@@ -93,7 +93,7 @@ describe('UserService', () => {
         await sut.update(userId, requestDto);
       };
 
-      await expect(result).rejects.toThrowError(
+      await expect(result).rejects.toThrow(
         new NotFoundException(UserMessage.USER_NOT_FOUND),
       );
     });
