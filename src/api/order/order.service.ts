@@ -24,9 +24,8 @@ export class OrderService {
     now: Date,
   ): Promise<OrderResponseDto> {
     const productNumbers = requestDto.productNumbers;
-    const products = await this.productRepository.findAllByProductNumberIn(
-      productNumbers,
-    );
+    const products =
+      await this.productRepository.findAllByProductNumberIn(productNumbers);
 
     const order = Order.create(products, now);
     const savedOrder = await this.orderRepository.save(order);
