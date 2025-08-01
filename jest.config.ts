@@ -9,7 +9,7 @@ const config: Config = {
   // 테스트 파일 탐색 및 변환 설정
   testRegex: '.*\\.spec\\.ts$',
   transform: {
-    '^.+\\.(t|j)s$': '@swc-node/jest',
+    '^.+\\.(t|j)s$': '@swc/jest',
   },
 
   // 모듈 및 경로 매핑 설정
