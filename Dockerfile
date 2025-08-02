@@ -1,5 +1,7 @@
 FROM node:22.16.0-alpine AS builder
 
+RUN apk add --no-cache python3 make g++
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
@@ -13,9 +15,7 @@ RUN npm prune --production
 
 FROM node:22.16.0-alpine AS deploy
 
-ENV NODE_ENV production
-
-RUN apk add --no-cache tzdata
+RUN apk add --no-cache tzdata curl
 
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app ./
