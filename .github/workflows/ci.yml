@@ -60,7 +60,7 @@ jobs:
       - name: Create .env file
         run: cp .env.example .env
 
-      - name: Start MySQL using Docker Compose
+      - name: Start MySQL and Redis for Tests
         run: docker compose up -d
 
       - name: Cache node modules
@@ -80,16 +80,31 @@ jobs:
         run: |
           echo "Waiting for MySQL to be healthy..."
           for i in {1..30}; do
-            STATUS=$(docker inspect --format='{{.State.Health.Status}}' nestjs-test-db)
+            STATUS=$(docker inspect --format='{{.State.Health.Status}}' nestjs-test-mysql)
             if [ "$STATUS" == "healthy" ]; then
              echo "MySQL is up!"
              exit 0
             fi
-            echo "Waiting for MySQL..."
+            echo "Waiting for MySQL... ($i)"
             sleep 2
           done
           echo "MySQL did not start in time" >&2
           exit 1
 
-      - name: Unit Test
+      - name: Wait for Redis to be Ready
+        run: |
+          echo "Waiting for Redis to be healthy..."
+          for i in {1..30}; do
+            STATUS=$(docker inspect --format='{{.State.Health.Status}}' nestjs-test-redis)
+            if [ "$STATUS" == "healthy" ]; then
+              echo "Redis is up!"
+              exit 0
+            fi
+            echo "Waiting for Redis... ($i)"
+            sleep 2
+          done
+          echo "Redis did not start in time" >&2
+          exit 1
+
+      - name: Run Tests
         run: npm run test

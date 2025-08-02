@@ -1,7 +1,7 @@
 services:
-  db:
+  mysql:
     image: mysql:8.0.36
-    container_name: nestjs-test-db
+    container_name: nestjs-test-mysql
     ports:
       - "3306:3306"
     environment:
@@ -17,6 +17,20 @@ services:
       - --sql-mode=STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    image: redis:7.2.10-alpine
+    container_name: nestjs-test-redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    tmpfs:
+      - /data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 5

@@ -1,7 +1,7 @@
 services:
-  db:
+  mysql:
     image: mysql:8.0.36
-    container_name: nest-db
+    container_name: nest-mysql
     volumes:
       - dbdata:/var/lib/mysql
       - ./docker/mysql/custom.cnf:/etc/mysql/conf.d/custom.cnf
@@ -26,7 +26,7 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      - mysql
     command:
       - bash
       - -c
