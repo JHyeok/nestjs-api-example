@@ -5,6 +5,7 @@ const config: Config = {
   rootDir: '.',
   testEnvironment: 'node',
   moduleFileExtensions: ['js', 'json', 'ts'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
 
   // 테스트 파일 탐색 및 변환 설정
   testRegex: '.*\\.spec\\.ts$',
