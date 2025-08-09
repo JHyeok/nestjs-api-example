@@ -37,4 +37,18 @@ export class OrderResponseDto {
       ),
     );
   }
+
+  /*
+  static of(order: Order): OrderResponseDto {
+    const response = new OrderResponseDto();
+    response.id = order.id;
+    response.totalPrice = order.totalPrice;
+    response.registeredDateTime = order.registeredDateTime;
+    response.products = order.orderProducts.map((orderProduct) =>
+      ProductResponseDto.of(orderProduct.product),
+    );
+
+    return response;
+  }
+   */
 }
