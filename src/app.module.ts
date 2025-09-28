@@ -11,7 +11,7 @@ import { NotFoundExceptionFilter } from './common/filter/not-found-exception.fil
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     MySQLModule,
     DebugModule,
     HealthModule,
