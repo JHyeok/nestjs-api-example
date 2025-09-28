@@ -31,7 +31,7 @@ services:
       - bash
       - -c
       - |
-        /wait-for-it.sh db:3306 -t 15
+        /wait-for-it.sh mysql:3306 -t 15
         npm run start:dev
     env_file:
       - .env
