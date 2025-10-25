@@ -32,20 +32,6 @@ $ npm run docker:up
 $ npm run docker:down
 ```
 
-docker-compose.dev.yml
-- DB와 NestJS 앱을 실행하는 목적으로 사용합니다.
-- Dockerfile.dev를 사용합니다.
-
-```bash
-# 실행
-$ docker compose -f docker-compose.dev.yml up -d
-
-# 중지 (도커 볼륨 삭제)
-$ docker compose -f docker-compose.dev.yml down -v
-```
-
-Dockerfile.dev는 로컬에서 빌드를 테스트하는 목적이고 Dockerfile은 운영 환경에서 사용할 수 있도록 최적화했습니다.
-
 ## 실행
 
 ```bash
