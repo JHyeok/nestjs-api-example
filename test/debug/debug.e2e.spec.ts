@@ -3,12 +3,12 @@ import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { DebugController } from 'src/api/debug/debug.controller';
 import { DebugService } from 'src/api/debug/debug.service';
-import { type MockProxy, mock, mockReset } from 'jest-mock-extended';
+import { mock, mockReset } from 'jest-mock-extended';
 import { setupApp } from 'src/common/config';
 
 describe('DebugController (e2e)', () => {
   let app: INestApplication;
-  const debugService: MockProxy<DebugService> = mock<DebugService>();
+  const debugService = mock<DebugService>();
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({

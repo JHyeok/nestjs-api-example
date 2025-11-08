@@ -7,11 +7,11 @@ import { UserCreateRequestDto } from 'src/api/user/dto/request/user-create-reque
 import { UserUpdateRequestDto } from 'src/api/user/dto/request/user-update-request.dto';
 import { NotFoundException } from '@nestjs/common';
 import { UserMessage } from 'src/api/user/user.message';
-import { type MockProxy, mock, mockReset } from 'jest-mock-extended';
+import { mock, mockReset } from 'jest-mock-extended';
 
 describe('UserService (jest-mock-extneded)', () => {
   let userService: UserService;
-  const userRepository: MockProxy<UserRepository> = mock<UserRepository>();
+  const userRepository = mock<UserRepository>();
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
