@@ -2,11 +2,11 @@ import { INestApplication } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 /**
- * Swagger 세팅
+ * OpenAPI 문서 생성 및 문서 UI 설정
  *
  * @param {INestApplication} app
  */
-export function setupSwagger(app: INestApplication): void {
+export async function setupOpenApi(app: INestApplication): Promise<void> {
   const options = new DocumentBuilder()
     .setTitle('NestJS Study API Docs')
     .setDescription('NestJS Study API description')
@@ -15,4 +15,14 @@ export function setupSwagger(app: INestApplication): void {
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);
+
+  const { apiReference } = await import('@scalar/nestjs-api-reference');
+
+  app.use(
+    '/reference',
+    apiReference({
+      content: document,
+      theme: 'purple',
+    }),
+  );
 }

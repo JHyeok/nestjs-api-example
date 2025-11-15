@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { ConfigService } from '@nestjs/config';
-import { setupApp, setupSwagger } from './common/config';
+import { setupApp, setupOpenApi } from './common/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,10 +11,32 @@ async function bootstrap() {
 
   setupApp(app);
 
-  app.use(helmet());
+  helmet({
+    crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: [`'self'`, 'unpkg.com'],
+        styleSrc: [
+          `'self'`,
+          `'unsafe-inline'`,
+          'cdn.jsdelivr.net',
+          'fonts.googleapis.com',
+          'unpkg.com',
+        ],
+        fontSrc: [`'self'`, 'fonts.gstatic.com', 'data:'],
+        imgSrc: [`'self'`, 'data:', 'cdn.jsdelivr.net'],
+        scriptSrc: [
+          `'self'`,
+          `https: 'unsafe-inline'`,
+          `cdn.jsdelivr.net`,
+          `'unsafe-eval'`,
+        ],
+      },
+    },
+  });
   app.enableCors();
 
-  setupSwagger(app);
+  await setupOpenApi(app);
 
   const port = configService.get<number>('PORT');
   const env = configService.get<string>('NODE_ENV');
