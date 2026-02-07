@@ -1,4 +1,4 @@
-FROM node:22.17.1-alpine AS builder
+FROM node:24.13.0-alpine AS builder
 
 RUN apk add --no-cache python3 make g++
 
@@ -13,7 +13,7 @@ RUN npm run build
 # devDependencies 제거
 RUN npm prune --production
 
-FROM node:22.17.1-alpine AS deploy
+FROM node:24.13.0-alpine AS deploy
 
 RUN apk add --no-cache tzdata curl
 
