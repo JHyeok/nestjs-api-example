@@ -1,6 +1,6 @@
 services:
   mysql:
-    image: mysql:8.0.36
+    image: mysql:9.6.0
     container_name: nestjs-test-mysql
     ports:
       - "3306:3306"
