@@ -1,11 +1,4 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  Relation,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, OneToMany, Relation } from 'typeorm';
 import { OrderStatus } from './order-status';
 import { OrderProduct } from './order-product.entity';
 import { Product } from './product.entity';
@@ -13,9 +6,6 @@ import { BaseEntity } from '../../../common/entity/base.entity';
 
 @Entity()
 export class Order extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   @Column({
     type: 'enum',
     enum: OrderStatus,

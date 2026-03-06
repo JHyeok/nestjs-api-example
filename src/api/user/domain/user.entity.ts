@@ -1,13 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { BaseEntity } from '../../../common/entity/base.entity';
 
 @Entity()
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  @ApiProperty({ description: 'id' })
-  id: number;
-
   @Column({ length: 50 })
   @ApiProperty({ description: '이름' })
   firstName: string;
