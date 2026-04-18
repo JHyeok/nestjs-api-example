@@ -1,4 +1,9 @@
-import { CreateDateColumn, Generated, PrimaryColumn } from 'typeorm';
+import {
+  CreateDateColumn,
+  Generated,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { BigintValueTransformer } from './transformer/bigint-value.transformer';
 
 export abstract class BaseEntity {
@@ -9,6 +14,6 @@ export abstract class BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn()
   updatedAt: Date;
 }
