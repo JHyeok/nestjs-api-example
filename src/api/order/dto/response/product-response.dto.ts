@@ -1,11 +1,10 @@
 import { Product } from '../../domain/product.entity';
-import { ApiProperty } from '@nestjs/swagger';
 
 export class ProductResponseDto {
-  @ApiProperty({ description: '상품 번호' })
+  /** 상품 번호 */
   productNumber: string;
 
-  @ApiProperty({ description: '상품 가격' })
+  /** 상품 가격 */
   price: number;
 
   constructor(productNumber: string, price: number) {
