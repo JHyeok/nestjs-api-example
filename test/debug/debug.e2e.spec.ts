@@ -4,7 +4,7 @@ import request from 'supertest';
 import { DebugController } from 'src/api/debug/debug.controller';
 import { DebugService } from 'src/api/debug/debug.service';
 import { mock, mockReset } from 'jest-mock-extended';
-import { setupApp } from 'src/common/config';
+import { setupApp } from 'src/common/config/app.config';
 
 describe('DebugController (e2e)', () => {
   let app: INestApplication;

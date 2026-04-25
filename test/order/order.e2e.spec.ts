@@ -3,7 +3,7 @@ import { HttpStatus, INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from 'src/app.module';
 import { TestMySQLModule } from '../test-mysql.module';
-import { setupApp } from 'src/common/config';
+import { setupApp } from 'src/common/config/app.config';
 import { ProductRepository } from 'src/api/order/repository/product.repository';
 import { ProductType } from 'src/api/order/domain/product-type';
 import { OrderRepository } from 'src/api/order/repository/order.repository';

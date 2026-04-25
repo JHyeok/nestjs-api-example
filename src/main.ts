@@ -2,7 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { ConfigService } from '@nestjs/config';
-import { setupApp, setupOpenApi } from './common/config';
+import { setupApp } from './common/config/app.config';
+import { setupOpenApi } from './common/config/openapi.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
